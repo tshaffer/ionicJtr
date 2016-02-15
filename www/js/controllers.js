@@ -6,6 +6,11 @@ angular.module('jtr.controllers', [])
   $scope.remote = function (recording) {
     Recordings.remove(recording);
   };
+
+  //var pizza = Pizza.all();
+
+  //var getJtrRecordingsPromise = $jtrServerService.getRecordings();
+
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
