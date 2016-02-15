@@ -4,6 +4,28 @@
 //angular.module('jtr.jtrServerService', ['$http', function($http) {
 angular.module('jtr.jtrServerService', [])
 
+  .service ('jtrServerService', ['$http', function($http){
+
+    var self = this;
+
+    var baseURL = document.baseURI.replace("?", "");
+    if (baseURL.indexOf("localhost") >= 0) {
+      this.baseUrl = "http://192.168.0.113:8080/";
+    }
+    else {
+      this.baseUrl = document.baseURI.substr(0, document.baseURI.lastIndexOf(":")) + ":8080/";
+    }
+
+    this.getRecordings = function () {
+
+      var url = self.baseUrl + "getRecordings";
+
+      var promise = $http.get(url, {});
+      return promise;
+    };
+
+  }])
+
   .factory ('Pizza', function() {
 
     // Some fake testing data

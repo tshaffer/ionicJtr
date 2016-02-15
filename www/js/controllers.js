@@ -1,15 +1,19 @@
 angular.module('jtr.controllers', [])
 
-.controller('RecordingsCtrl', function($scope, Recordings) {
+.controller('RecordingsCtrl', function($scope, Recordings, Pizza, jtrServerService) {
 
   $scope.recordings = Recordings.all();
   $scope.remote = function (recording) {
     Recordings.remove(recording);
   };
 
-  //var pizza = Pizza.all();
+  var pizza = Pizza.all();
 
-  //var getJtrRecordingsPromise = $jtrServerService.getRecordings();
+  var getJtrRecordingsPromise = jtrServerService.getRecordings();
+  getJtrRecordingsPromise.then(function (result) {
+    console.log("getRecordings success");
+    $scope.recordings = result.data.recordings;
+  });
 
 })
 
