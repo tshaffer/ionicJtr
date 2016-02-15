@@ -1,6 +1,12 @@
-angular.module('starter.controllers', [])
+angular.module('jtr.controllers', [])
 
-.controller('RecordingsCtrl', function($scope) {})
+.controller('RecordingsCtrl', function($scope, Recordings) {
+
+  $scope.recordings = Recordings.all();
+  $scope.remote = function (recording) {
+    Recordings.remove(recording);
+  };
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

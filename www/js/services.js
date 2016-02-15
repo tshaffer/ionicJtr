@@ -1,9 +1,38 @@
-angular.module('starter.services', [])
+angular.module('jtr.services', [])
+
+.factory ('Recordings', function() {
+
+  // Some fake testing data
+  var recordings =[{
+    title: 'Seinfeld'
+  }, {
+    title: 'Best Pizza Ever'
+  }, {
+    title: 'Get Smart'
+  }];
+
+  return {
+    all: function() {
+      return recordings;
+    },
+    remove: function(recording) {
+      recordings.splice(recordings.indexOf(recording), 1);
+    },
+    get: function(recordingId) {
+      for (var i = 0; i < recordings.length; i++) {
+        if (recordings[i].id === parseInt(recordingId)) {
+          return recordings[i];
+        }
+      }
+      return null;
+    }
+  };
+
+})
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
   var chats = [{
     id: 0,
     name: 'Ben Sparrow',
