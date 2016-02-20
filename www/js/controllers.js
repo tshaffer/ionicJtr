@@ -19,12 +19,15 @@ angular.module('jtr.controllers', [])
   $scope.invokeTrickMode = function(trickMode) {
     console.log("trickMode invoked: " + trickMode);
 
-    //var commandData = {
-    //  "command": trickMode
-    //};
-    //
-    //var commandData = {"command": "remoteCommand", "value": trickMode};
-    //var promise = $jtrServerService.browserCommand(commandData);
+    var commandData = {
+      "command": trickMode
+    };
+
+    var commandData = {"command": "remoteCommand", "value": trickMode};
+    var promise = jtrServerService.browserCommand(commandData);
+    promise.then(function () {
+      console.log("browserCommand successfully sent");
+    })
   };
 
 })
@@ -43,7 +46,6 @@ angular.module('jtr.controllers', [])
       storageDevice: recording.storagedevice
     };
 
-    //commandData = {"command": "playRecordedShow", "recordingId": id, "relativeUrl": relativeUrl, "storageLocation": storageLocation};
     commandData = {"command": "playRecordedShow", "storedRecording": storedRecording };
 
     var promise = jtrServerService.browserCommand(commandData);
