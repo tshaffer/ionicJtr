@@ -2,8 +2,25 @@ angular.module('jtr.controllers', [])
 
 .controller('RecordingsCtrl', function($scope, jtrServerService) {
 
-  $scope.play = function(recording) {
-    console.log("Play recording: " + recording.Title)
+  $scope.playRecordedShow = function(recording) {
+    console.log("controller.js::Play recording: " + recording.Title);
+
+    var commandData;
+
+    var storedRecording = {
+      recordingId: recording.RecordingId,
+      relativeUrl: recording.relativeurl,
+      storageLocation: recording.storagelocation,
+      storageDevice: recording.storagedevice
+    };
+
+    //commandData = {"command": "playRecordedShow", "recordingId": id, "relativeUrl": relativeUrl, "storageLocation": storageLocation};
+    commandData = {"command": "playRecordedShow", "storedRecording": storedRecording };
+
+    var promise = jtrServerService.browserCommand(commandData);
+    promise.then(function () {
+      console.log("browserCommand successfully sent");
+    })
   };
 
   console.log("invoke getRecordings");

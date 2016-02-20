@@ -18,6 +18,17 @@ angular.module('jtr.jtrServerService', [])
       this.baseUrl = document.baseURI.substr(0, document.baseURI.lastIndexOf(":")) + ":8080/";
     }
 
+    this.browserCommand = function(commandData) {
+
+      var url = self.baseUrl + "browserCommand";
+
+      var promise = $http.get(url, {
+        params: commandData
+      });
+      return promise;
+    };
+
+
     this.getRecordings = function () {
 
       console.log("jtrServerService::getRecordings");
@@ -52,4 +63,5 @@ angular.module('jtr.jtrServerService', [])
 
       return null;
     }
+
   }])
