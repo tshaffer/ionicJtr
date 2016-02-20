@@ -1,7 +1,7 @@
 <ion-view view-title="Recordings">
   <ion-content>
     <ion-list>
-      <ion-item ng-repeat="recording in recordings">
+      <ion-item ng-repeat="recording in recordings" href="#/tab/recordings/{{recording.RecordingId}}">
         <h2>{{recording.Title}}</h2>
       </ion-item>
     </ion-list>

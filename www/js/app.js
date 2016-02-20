@@ -50,7 +50,17 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
-  .state('tab.chats', {
+    .state('tab.recording-detail', {
+      url: '/recordings/:recordingId',
+      views: {
+        'tab-recordings': {
+          templateUrl: 'templates/recording-detail.html',
+          controller: 'RecordingDetailCtrl'
+        }
+      }
+    })
+
+    .state('tab.chats', {
       url: '/chats',
       views: {
         'tab-chats': {

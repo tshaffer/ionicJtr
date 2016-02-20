@@ -8,11 +8,17 @@ angular.module('jtr.controllers', [])
   getJtrRecordingsPromise.then(function (result) {
     console.log("getRecordings success");
     $scope.recordings = result.data.recordings;
+    jtrServerService.setRecordings($scope.recordings);
   });
 
 })
 
-.controller('ChatsCtrl', function($scope, Chats, jtrServerService) {
+.controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
+  $scope.recording = jtrServerService.getRecording($stateParams.recordingId);
+})
+
+
+  .controller('ChatsCtrl', function($scope, Chats, jtrServerService) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
