@@ -2,6 +2,10 @@ angular.module('jtr.controllers', [])
 
 .controller('RecordingsCtrl', function($scope, jtrServerService) {
 
+  $scope.play = function(recording) {
+    console.log("Play recording: " + recording.Title)
+  };
+
   console.log("invoke getRecordings");
   //$scope.recordings = jtrServerService.getRecordings();
   var getJtrRecordingsPromise = jtrServerService.getRecordings();
@@ -14,6 +18,7 @@ angular.module('jtr.controllers', [])
 })
 
 .controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
+
   $scope.recording = jtrServerService.getRecording($stateParams.recordingId);
 })
 
