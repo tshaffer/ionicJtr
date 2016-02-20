@@ -34,6 +34,11 @@ angular.module('jtr.controllers', [])
 
 .controller('RecordingsCtrl', function($scope, jtrServerService) {
 
+  $scope.doRefresh = function() {
+    console.log("start refresh");
+    $scope.show();
+  };
+
   $scope.playRecordedShow = function(recording) {
     console.log("controller.js::Play recording: " + recording.Title);
 
@@ -54,15 +59,18 @@ angular.module('jtr.controllers', [])
     })
   };
 
-  console.log("invoke getRecordings");
-  //$scope.recordings = jtrServerService.getRecordings();
-  var getJtrRecordingsPromise = jtrServerService.getRecordings();
-  getJtrRecordingsPromise.then(function (result) {
-    console.log("getRecordings success");
-    $scope.recordings = result.data.recordings;
-    jtrServerService.setRecordings($scope.recordings);
-  });
+  $scope.show = function() {
+    console.log("invoke getRecordings");
+    var getJtrRecordingsPromise = jtrServerService.getRecordings();
+    getJtrRecordingsPromise.then(function (result) {
+      console.log("getRecordings success");
+      $scope.recordings = result.data.recordings;
+      jtrServerService.setRecordings($scope.recordings);
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
 
+  $scope.show();
 })
 
 .controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {

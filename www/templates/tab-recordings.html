@@ -1,5 +1,11 @@
 <ion-view view-title="Recordings">
   <ion-content>
+
+    <ion-refresher
+      pulling-text="Refreshing..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+
     <ion-list>
       <!--<ion-item ng-repeat="recording in recordings" href="#/tab/recordings/{{recording.RecordingId}}" class="item-icon-right"-->
       <!--<ion-item ng-repeat="recording in recordings" class="item-icon-right" href="#/tab/recordings/{{recording.RecordingId}}">-->
