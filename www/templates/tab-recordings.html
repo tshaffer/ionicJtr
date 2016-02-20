@@ -4,7 +4,7 @@
       <!--<ion-item ng-repeat="recording in recordings" href="#/tab/recordings/{{recording.RecordingId}}" class="item-icon-right"-->
       <!--<ion-item ng-repeat="recording in recordings" class="item-icon-right" href="#/tab/recordings/{{recording.RecordingId}}">-->
       <!--<h2>{{recording.Title}}</h2>-->
-      <ion-item ng-repeat="recording in recordings" class="item-icon-right">
+      <ion-item ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" class="item-icon-right">
         <a href="#/tab/recordings/{{recording.RecordingId}}">{{recording.Title}}</a>
         <i class="icon ion-play" ng-click="playRecordedShow(recording)"></i>
       </ion-item>
