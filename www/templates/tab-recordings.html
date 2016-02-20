@@ -12,6 +12,7 @@
       <!--<h2>{{recording.Title}}</h2>-->
       <ion-item ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" class="item-icon-right">
         <a href="#/tab/recordings/{{recording.RecordingId}}">{{recording.Title}}</a>
+        <p>{{recording.StartDateTime|formatStartDateTime}}</p>
         <i class="icon ion-play" ng-click="playRecordedShow(recording)"></i>
       </ion-item>
     </ion-list>

@@ -23,6 +23,33 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
   });
 })
 
+.filter('formatStartDateTime', function() {
+  return function(startDateTime) {
+
+    var weekday = new Array(7);
+    weekday[0] = "Sun";
+    weekday[1] = "Mon";
+    weekday[2] = "Tue";
+    weekday[3] = "Wed";
+    weekday[4] = "Thu";
+    weekday[5] = "Fri";
+    weekday[6] = "Sat";
+
+    var dt = startDateTime;
+    var n = dt.indexOf(".");
+    var formattedDayDate;
+    if (n >= 0) {
+      var dtCompatible = dt.substring(0, n);
+      var date = new Date(dtCompatible);
+      formattedDayDate = weekday[date.getDay()] + " " + (date.getMonth() + 1).toString() + "/" + date.getDate().toString();
+    }
+    else {
+      formattedDayDate = "poop";
+    }
+    return formattedDayDate;
+  };
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
