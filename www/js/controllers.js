@@ -136,6 +136,18 @@ angular.module('jtr.controllers', [])
 
       console.log("scope time is: " + $scope.time);
       console.log($scope.timeHours.toString() + ":" + $scope.timeMinutes.toString() + " " + $scope.timeAMPM);
+
+      $scope.title = "Fred";
+      
+      console.log("onSuccess");
+      console.log("Title: " + $scope.title);
+      console.log("Duration: " + $scope.duration);
+      console.log("Date: " + $scope.date);
+      console.log("Time: " + $scope.time);
+      console.log("Input source: " + $scope.inputSource);
+      console.log("Channel: " + $scope.channel);
+
+
     }
 
     function onError(error) { // Android only
@@ -144,6 +156,49 @@ angular.module('jtr.controllers', [])
 
     datePicker.show(options, onSuccess, onError);
   }
+
+  $scope.invokeManualRecord = function() {
+
+    console.log("invokeManualRecord");
+    console.log("Title: " + $scope.title);
+    console.log("Duration: " + $scope.duration);
+    console.log("Date: " + $scope.date);
+    console.log("Time: " + $scope.time);
+    console.log("Input source: " + $scope.inputSource);
+    console.log("Channel: " + $scope.channel);
+
+    return;
+
+    var date = $scope.date;
+    var time = $scope.time;
+
+    date.clearTime();
+    var dateObj = date.set({
+      millisecond: 0,
+      second: 0,
+      minute: time.getMinutes(),
+      hour: time.getHours()
+    });
+
+    // check to see if recording is in the past
+    var dtEndOfRecording = new Date(dateObj).addMinutes($scope.duration);
+    var now = new Date();
+
+    var millisecondsUntilEndOfRecording = dtEndOfRecording - now;
+    if (millisecondsUntilEndOfRecording < 0) {
+      alert("Recording time is in the past - change the date/time and try again.");
+    }
+
+    $scope.manualRecordingParameters = {}
+    $scope.manualRecordingParameters.title = $scope.getRecordingTitle("#manualRecordTitle", dateObj, $scope.inputSource, $scope.channel);
+    $scope.manualRecordingParameters.dateTime = dateObj;
+    $scope.manualRecordingParameters.duration = $scope.duration;
+    $scope.manualRecordingParameters.inputSource = $scope.inputSource;
+    $scope.manualRecordingParameters.channel = $scope.channel;
+
+    $jtrServerService.manualRecording($scope.manualRecordingParameters);
+  };
+
 })
 
 .controller('RecordNowCtrl', function($scope) {
