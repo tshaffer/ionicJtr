@@ -79,7 +79,22 @@ angular.module('jtr.controllers', [])
 })
 
 
-  .controller('ChatsCtrl', function($scope, Chats, jtrServerService) {
+.controller('ChannelGuideCtrl', function($scope) {
+})
+
+.controller('ScheduledRecordingsCtrl', function($scope) {
+})
+
+.controller('ManualRecordCtrl', function($scope) {
+})
+
+.controller('RecordNowCtrl', function($scope) {
+})
+
+.controller('SettingsCtrl', function($scope) {
+})
+
+.controller('ChatsCtrl', function($scope, Chats, jtrServerService) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -106,10 +121,6 @@ angular.module('jtr.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
-})
-
-
-.controller('ManualRecordCtrl', function($scope) {
 })
 
 .controller('AccountCtrl', function($scope) {

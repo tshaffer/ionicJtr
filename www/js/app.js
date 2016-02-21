@@ -87,12 +87,52 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
+  .state('tab.channelguide', {
+    url: '/channelguide',
+    views: {
+      'tab-channelguide': {
+        templateUrl: 'templates/tab-channelguide.html',
+        controller: 'ChannelGuideCtrl'
+      }
+    }
+  })
+
+  .state('tab.scheduledrecordings', {
+    url: '/scheduledrecordings',
+    views: {
+      'tab-scheduledrecordings': {
+        templateUrl: 'templates/tab-scheduledrecordings.html',
+        controller: 'ScheduledRecordingsCtrl'
+      }
+    }
+  })
+
   .state('tab.manualrecord', {
     url: '/manualrecord',
     views: {
       'tab-manualrecord': {
         templateUrl: 'templates/tab-manualrecord.html',
         controller: 'ManualRecordCtrl'
+      }
+    }
+  })
+
+  .state('tab.recordnow', {
+    url: '/recordnow',
+    views: {
+      'tab-recordnow': {
+        templateUrl: 'templates/tab-recordnow.html',
+        controller: 'RecordNowCtrl'
+      }
+    }
+  })
+
+  .state('tab.settings', {
+    url: '/settings',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-settings.html',
+        controller: 'SettingsCtrl'
       }
     }
   })
