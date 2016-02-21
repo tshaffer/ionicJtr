@@ -87,7 +87,20 @@ angular.module('jtr.controllers', [])
 
 .controller('ManualRecordCtrl', function($scope) {
 
-  $scope.inputSource = "pvr";
+  $scope.inputSource = "tuner";
+  $scope.title = "Test 0";
+  $scope.duration = 1;
+  $scope.date = new Date();
+  $scope.time = new Date();
+  $scope.time.setSeconds(0);
+  $scope.channel = 5;
+
+  $scope.timeHours = $scope.time.getHours().toString();
+  $scope.timeMinutes = $scope.time.getMinutes().toString();
+  if ($scope.timeMinutes.length == 1) {
+    $scope.timeMinutes = "0" + $scope.timeMinutes;
+  }
+  $scope.timeAMPM = "AM";
 
   $scope.showTimeDlg = function() {
     console.log("showTimeDlg invoked");
@@ -98,10 +111,31 @@ angular.module('jtr.controllers', [])
     };
 
     function onSuccess(date) {
-      alert('Selected date: ' + date);
+      //alert('Selected date: ' + date);
       console.log("Hours=" + date.getHours());
       console.log("Minutes=" + date.getMinutes());
+      $scope.time.setHours(date.getHours());
+      $scope.time.setMinutes(date.getMinutes());
 
+      $scope.$apply(function() {
+        if (date.getHours() >= 12) {
+          $scope.timeHours = (date.getHours() - 12).toString();
+          if ($scope.timeHours == 0) {
+            $scope.timeHours = "12";
+          }
+          $scope.timeAMPM = "PM";
+        }
+        else {
+          $scope.timeAMPM = "AM";
+        }
+        $scope.timeMinutes = $scope.time.getMinutes().toString();
+        if ($scope.timeMinutes.length == 1) {
+          $scope.timeMinutes = "0" + $scope.timeMinutes;
+        }
+      });
+
+      console.log("scope time is: " + $scope.time);
+      console.log($scope.timeHours.toString() + ":" + $scope.timeMinutes.toString() + " " + $scope.timeAMPM);
     }
 
     function onError(error) { // Android only
