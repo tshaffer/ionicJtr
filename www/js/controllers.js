@@ -108,6 +108,10 @@ angular.module('jtr.controllers', [])
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
+
+.controller('ManualRecordCtrl', function($scope) {
+})
+
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true

@@ -87,6 +87,16 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
       }
     })
 
+    .state('tab.manualrecordings', {
+      url: '/manualrecordings',
+      views: {
+        'tab-account': {
+          templateUrl: 'templates/tab-manualrecordings.html',
+          controller: 'ManualRecordCtrl'
+        }
+      }
+    })
+
     .state('tab.chats', {
       url: '/chats',
       views: {
