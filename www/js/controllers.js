@@ -86,6 +86,27 @@ angular.module('jtr.controllers', [])
 })
 
 .controller('ManualRecordCtrl', function($scope) {
+  $scope.showTimeDlg = function() {
+    console.log("showTimeDlg invoked");
+
+    var options = {
+      date: new Date(),
+      mode: 'time'
+    };
+
+    function onSuccess(date) {
+      alert('Selected date: ' + date);
+      console.log("Hours=" + date.getHours());
+      console.log("Minutes=" + date.getMinutes());
+
+    }
+
+    function onError(error) { // Android only
+      alert('Error: ' + error);
+    }
+
+    datePicker.show(options, onSuccess, onError);
+  }
 })
 
 .controller('RecordNowCtrl', function($scope) {
