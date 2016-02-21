@@ -77,44 +77,45 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
-    .state('tab.recording-detail', {
-      url: '/recordings/:recordingId',
-      views: {
-        'tab-recordings': {
-          templateUrl: 'templates/recording-detail.html',
-          controller: 'RecordingDetailCtrl'
-        }
+  .state('tab.recording-detail', {
+    url: '/recordings/:recordingId',
+    views: {
+      'tab-recordings': {
+        templateUrl: 'templates/recording-detail.html',
+        controller: 'RecordingDetailCtrl'
       }
-    })
+    }
+  })
 
-    .state('tab.manualrecordings', {
-      url: '/manualrecordings',
-      views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-manualrecordings.html',
-          controller: 'ManualRecordCtrl'
-        }
+  .state('tab.manualrecord', {
+    url: '/manualrecord',
+    views: {
+      'tab-manualrecord': {
+        templateUrl: 'templates/tab-manualrecord.html',
+        controller: 'ManualRecordCtrl'
       }
-    })
+    }
+  })
 
-    .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+  .state('tab.chats', {
+    url: '/chats',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/tab-chats.html',
+        controller: 'ChatsCtrl'
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
+    }
+  })
+
+  .state('tab.chat-detail', {
+    url: '/chats/:chatId',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/chat-detail.html',
+        controller: 'ChatDetailCtrl'
       }
-    })
+    }
+  })
 
   .state('tab.account', {
     url: '/account',
