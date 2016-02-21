@@ -18,19 +18,20 @@
         <!--<input type="text">-->
         <button ng-click="showTimeDlg()">Set Time</button>
       </label>
-      <label class="item item-input">
+      <label class="item-input">
         <span class="input-label">Input Source</span>
-        <ion-list>
-          <ion-radio ng-model="inputSource" ng-value="'tuner'">Tuner</ion-radio>
-          <ion-radio ng-model="inputSource" ng-value="'roku'">Roku</ion-radio>
-          <ion-radio ng-model="inputSource" ng-value="'pvr'">PVR</ion-radio>
-        </ion-list>
-        <!--<div class="button-bar padding">-->
-          <!--<a grouped-radio="'tuner'" ng-model="inputSource">Tuner</a>-->
-          <!--<a grouped-radio="'roku'" ng-model="inputSource">Roku</a>-->
-          <!--<a grouped-radio="'pvr'" ng-model="inputSource">PVR</a>-->
-        <!--</div>-->
+        <!--<ion-list>-->
+          <!--<ion-radio ng-model="inputSource" ng-value="'tuner'">Tuner</ion-radio>-->
+          <!--<ion-radio ng-model="inputSource" ng-value="'roku'">Roku</ion-radio>-->
+          <!--<ion-radio ng-model="inputSource" ng-value="'pvr'">PVR</ion-radio>-->
+        <!--</ion-list>-->
       </label>
+      <!--click events weren't invoked unless the following was pulled out of the label-->
+      <div class="button-bar padding">
+        <a grouped-radio="'tuner'" ng-model="inputSource">Tuner</a>
+        <a grouped-radio="'roku'" ng-model="inputSource">Roku</a>
+        <a grouped-radio="'pvr'" ng-model="inputSource">PVR</a>
+      </div>
       <label class="item item-input">
         <span class="input-label">Channel</span>
         <input type="text">
