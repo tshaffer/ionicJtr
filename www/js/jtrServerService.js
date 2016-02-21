@@ -10,6 +10,8 @@ angular.module('jtr.jtrServerService', [])
     this.recordings = [];
 
     var baseURL = document.baseURI.replace("?", "");
+    console.log("document.baseURI=" + document.baseURI);
+    console.log("set baseURL from document:" + baseURL);
     if (baseURL.indexOf("localhost") >= 0) {
       this.baseUrl = "http://192.168.0.105:8080/";
       //this.baseUrl = "http://10.1.0.169:8080/";
@@ -17,10 +19,16 @@ angular.module('jtr.jtrServerService', [])
     else {
       this.baseUrl = document.baseURI.substr(0, document.baseURI.lastIndexOf(":")) + ":8080/";
     }
+    this.baseUrl = "http://192.168.0.105:8080/";
+    console.log("baseURL final setting:" + this.baseURL);
 
     this.browserCommand = function(commandData) {
 
+      console.log("jtrServerService::browserCommand");
+
       var url = self.baseUrl + "browserCommand";
+
+      console.log("jtrServerService::browserCommand, url=" + url);
 
       var promise = $http.get(url, {
         params: commandData

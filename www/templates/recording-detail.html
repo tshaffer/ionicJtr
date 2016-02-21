@@ -1,10 +1,22 @@
 <ion-view view-title="{{recording.Title}}">
   <ion-content class="padding">
     <p>
-      StartDateTime: {{recording.StartDateTime}}
+      Recorded on {{recording.StartDateTime|formatStartDateTime}}
     </p>
     <p>
-      Duration (in minutes): {{recording.Duration}}
+      Duration {{recording.Duration}} minutes
     </p>
   </ion-content>
+
+  <ion-footer-bar class="bar-stable" ng-controller="footer">
+
+  <div style="margin: 0 auto" class="buttons">
+    <button ng-repeat="trickMode in trickModes"
+            class="button icon {{trickMode.font}}"
+            ng-click='invokeTrickMode(trickMode.command);'>
+    </button>
+  </div>
+
+  </ion-footer-bar>
+
 </ion-view>
