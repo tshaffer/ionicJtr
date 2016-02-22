@@ -95,12 +95,21 @@ angular.module('jtr.controllers', [])
   $scope.time.setSeconds(0);
   $scope.channel = 5;
 
-  $scope.timeHours = $scope.time.getHours().toString();
+  if ($scope.time.getHours() >= 12) {
+    $scope.timeHours = ($scope.time.getHours() - 12).toString();
+    if ($scope.timeHours == 0) {
+      $scope.timeHours = "12";
+    }
+    $scope.timeAMPM = "PM";
+  }
+  else {
+    $scope.timeHours = $scope.time.getHours().toString();
+    $scope.timeAMPM = "AM";
+  }
   $scope.timeMinutes = $scope.time.getMinutes().toString();
   if ($scope.timeMinutes.length == 1) {
     $scope.timeMinutes = "0" + $scope.timeMinutes;
   }
-  $scope.timeAMPM = "AM";
 
   $scope.showTimeDlg = function() {
     console.log("showTimeDlg invoked");
@@ -111,7 +120,6 @@ angular.module('jtr.controllers', [])
     };
 
     function onSuccess(date) {
-      //alert('Selected date: ' + date);
       console.log("Hours=" + date.getHours());
       console.log("Minutes=" + date.getMinutes());
       $scope.time.setHours(date.getHours());
