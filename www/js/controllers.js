@@ -90,8 +90,21 @@ angular.module('jtr.controllers', [])
   $scope.title = "";
   $scope.duration = 1;
   $scope.date = new Date();
+  $scope.time = new Date();
+  $scope.time.setSeconds(0);
   $scope.inputSource = "tuner";
   $scope.channel = "5";
+
+  $scope.timeHours = $scope.time.getHours().toString();
+  $scope.timeMinutes = $scope.time.getMinutes().toString();
+  if ($scope.timeMinutes.length == 1) {
+    $scope.timeMinutes = "0" + $scope.timeMinutes;
+  }
+  $scope.timeAMPM = "AM";
+
+  $scope.invokeManualRecord = function() {
+
+  }
 
   $scope.showTimeDlg = function() {
     console.log("showTimeDlg invoked");
