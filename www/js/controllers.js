@@ -39,6 +39,22 @@ angular.module('jtr.controllers', [])
     $scope.show();
   };
 
+  $scope.show = function() {
+    console.log("invoke getRecordings");
+    var getJtrRecordingsPromise = jtrServerService.getRecordings();
+    getJtrRecordingsPromise.then(function (result) {
+      console.log("getRecordings success");
+      $scope.recordings = result.data.recordings;
+      jtrServerService.setRecordings($scope.recordings);
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+  }
+
+  $scope.show();
+})
+
+.controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
+
   $scope.playRecordedShow = function(recording) {
     console.log("controller.js::Play recording: " + recording.Title);
 
@@ -59,23 +75,9 @@ angular.module('jtr.controllers', [])
     })
   };
 
-  $scope.show = function() {
-    console.log("invoke getRecordings");
-    var getJtrRecordingsPromise = jtrServerService.getRecordings();
-    getJtrRecordingsPromise.then(function (result) {
-      console.log("getRecordings success");
-      $scope.recordings = result.data.recordings;
-      jtrServerService.setRecordings($scope.recordings);
-      $scope.$broadcast('scroll.refreshComplete');
-    });
-  }
-
-  $scope.show();
-})
-
-.controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
 
   $scope.recording = jtrServerService.getRecording($stateParams.recordingId);
+  $scope.playRecordedShow($scope.recording);
 })
 
 
@@ -85,7 +87,7 @@ angular.module('jtr.controllers', [])
 .controller('ScheduledRecordingsCtrl', function($scope) {
 })
 
-.controller('ManualRecordCtrl', function($scope) {
+.controller('ManualRecordCtrl', function($scope, jtrServerService) {
 
   $scope.inputSource = "tuner";
   $scope.title = "Test 0";
@@ -166,10 +168,16 @@ angular.module('jtr.controllers', [])
     console.log("Input source: " + this.inputSource);
     console.log("Channel: " + this.channel);
 
-    return;
+    //console.log("invokeManualRecord");
+    //console.log("Title: " + $scope.title);
+    //console.log("Duration: " + $scope.duration);
+    //console.log("Date: " + $scope.date);
+    //console.log("Time: " + $scope.time);
+    //console.log("Input source: " + $scope.inputSource);
+    //console.log("Channel: " + $scope.channel);
 
-    var date = $scope.date;
-    var time = $scope.time;
+    var date = this.date;
+    var time = this.time;
 
     date.clearTime();
     var dateObj = date.set({
@@ -180,7 +188,7 @@ angular.module('jtr.controllers', [])
     });
 
     // check to see if recording is in the past
-    var dtEndOfRecording = new Date(dateObj).addMinutes($scope.duration);
+    var dtEndOfRecording = new Date(dateObj).addMinutes(this.duration);
     var now = new Date();
 
     var millisecondsUntilEndOfRecording = dtEndOfRecording - now;
@@ -189,13 +197,16 @@ angular.module('jtr.controllers', [])
     }
 
     $scope.manualRecordingParameters = {}
-    $scope.manualRecordingParameters.title = $scope.getRecordingTitle("#manualRecordTitle", dateObj, $scope.inputSource, $scope.channel);
+    //$scope.manualRecordingParameters.title = $scope.getRecordingTitle("#manualRecordTitle", dateObj, $scope.inputSource, $scope.channel);
+    $scope.manualRecordingParameters.title = this.title;
     $scope.manualRecordingParameters.dateTime = dateObj;
-    $scope.manualRecordingParameters.duration = $scope.duration;
+    $scope.manualRecordingParameters.duration = $scope.duration.toString();
     $scope.manualRecordingParameters.inputSource = $scope.inputSource;
-    $scope.manualRecordingParameters.channel = $scope.channel;
+    $scope.manualRecordingParameters.channel = $scope.channel.toString();
 
-    $jtrServerService.manualRecording($scope.manualRecordingParameters);
+    console.log("invoke jtrServerService.manualRecording");
+
+    jtrServerService.manualRecording($scope.manualRecordingParameters);
   };
 
 })
