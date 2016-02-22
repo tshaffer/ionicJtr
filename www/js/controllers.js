@@ -87,7 +87,11 @@ angular.module('jtr.controllers', [])
 
 .controller('ManualRecordCtrl', function($scope) {
 
-  $scope.inputSource = "pvr";
+  $scope.title = "";
+  $scope.duration = 1;
+  $scope.date = new Date();
+  $scope.inputSource = "tuner";
+  $scope.channel = "5";
 
   $scope.showTimeDlg = function() {
     console.log("showTimeDlg invoked");
