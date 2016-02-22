@@ -116,6 +116,7 @@ angular.module('jtr.controllers', [])
       console.log("Minutes=" + date.getMinutes());
       $scope.time.setHours(date.getHours());
       $scope.time.setMinutes(date.getMinutes());
+      console.log("scope time is: " + $scope.time);
 
       $scope.$apply(function() {
         if (date.getHours() >= 12) {
@@ -126,28 +127,18 @@ angular.module('jtr.controllers', [])
           $scope.timeAMPM = "PM";
         }
         else {
+          $scope.timeHours = date.getHours().toString();
           $scope.timeAMPM = "AM";
         }
         $scope.timeMinutes = $scope.time.getMinutes().toString();
         if ($scope.timeMinutes.length == 1) {
           $scope.timeMinutes = "0" + $scope.timeMinutes;
         }
+
+        console.log("inside of $apply");
+        console.log("scope time is: " + $scope.time);
+        console.log($scope.timeHours.toString() + ":" + $scope.timeMinutes.toString() + " " + $scope.timeAMPM);
       });
-
-      console.log("scope time is: " + $scope.time);
-      console.log($scope.timeHours.toString() + ":" + $scope.timeMinutes.toString() + " " + $scope.timeAMPM);
-
-      $scope.title = "Fred";
-      
-      console.log("onSuccess");
-      console.log("Title: " + $scope.title);
-      console.log("Duration: " + $scope.duration);
-      console.log("Date: " + $scope.date);
-      console.log("Time: " + $scope.time);
-      console.log("Input source: " + $scope.inputSource);
-      console.log("Channel: " + $scope.channel);
-
-
     }
 
     function onError(error) { // Android only
@@ -160,12 +151,12 @@ angular.module('jtr.controllers', [])
   $scope.invokeManualRecord = function() {
 
     console.log("invokeManualRecord");
-    console.log("Title: " + $scope.title);
-    console.log("Duration: " + $scope.duration);
-    console.log("Date: " + $scope.date);
-    console.log("Time: " + $scope.time);
-    console.log("Input source: " + $scope.inputSource);
-    console.log("Channel: " + $scope.channel);
+    console.log("Title: " + this.title);
+    console.log("Duration: " + this.duration);
+    console.log("Date: " + this.date);
+    console.log("Time: " + this.time);
+    console.log("Input source: " + this.inputSource);
+    console.log("Channel: " + this.channel);
 
     return;
 
