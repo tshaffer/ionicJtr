@@ -103,7 +103,11 @@ angular.module('jtr.controllers', [])
   $scope.timeAMPM = "AM";
 
   $scope.invokeManualRecord = function() {
+    console.log("title: " + $scope.title);
+    console.log("duration: " + $scope.duration);
 
+    console.log("title: " + this.title);
+    console.log("duration: " + this.duration);
   }
 
   $scope.showTimeDlg = function() {
@@ -115,9 +119,31 @@ angular.module('jtr.controllers', [])
     };
 
     function onSuccess(date) {
-      alert('Selected date: ' + date);
+      //alert('Selected date: ' + date);
       console.log("Hours=" + date.getHours());
       console.log("Minutes=" + date.getMinutes());
+      $scope.time.setHours(date.getHours());
+      $scope.time.setMinutes(date.getMinutes());
+
+      $scope.$apply(function() {
+        if (date.getHours() >= 12) {
+          $scope.timeHours = (date.getHours() - 12).toString();
+          if ($scope.timeHours == 0) {
+            $scope.timeHours = "12";
+          }
+          $scope.timeAMPM = "PM";
+        }
+        else {
+          $scope.timeAMPM = "AM";
+        }
+        $scope.timeMinutes = $scope.time.getMinutes().toString();
+        if ($scope.timeMinutes.length == 1) {
+          $scope.timeMinutes = "0" + $scope.timeMinutes;
+        }
+      });
+
+      console.log("scope time is: " + $scope.time);
+      console.log($scope.timeHours.toString() + ":" + $scope.timeMinutes.toString() + " " + $scope.timeAMPM);
 
     }
 
