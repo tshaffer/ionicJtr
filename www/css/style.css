@@ -5,3 +5,213 @@
 .button-bar > .button:first-child {
   border-radius: 20px 0px 0px 20px !important;
 }
+
+th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
+  width: 40px;
+  font-size: 16px;
+}
+
+.cgOptionsSpan {
+  width:150px;
+  text-align:center;
+  display:inline-block;
+}
+
+.modalLeftArrow {
+  margin-left: 70px;
+}
+
+.modalRightArrow {
+}
+
+.modalButton {
+  font-size: 20px;
+}
+
+#cgProgramDlg {
+  margin-top: 260px;
+}
+
+#cgSeriesDlg {
+  margin-top: 260px;
+}
+
+#cgProgramName {
+  font-size: 30px;
+  background-color: blue;
+  color: white;
+  margin-bottom: 0px;
+}
+
+#cgDateTimeInfo{
+  font-size: 24px;
+  background-color: blue;
+  color: white;
+}
+
+#cgEpisodeTitle{
+  font-size: 24px;
+  background-color: blue;
+  color: white;
+}
+
+#cgDescription {
+  font-size: 24px;
+  background-color: blue;
+  color: white;
+}
+
+#cgCastMembers {
+  font-size: 24px;
+  background-color: blue;
+  color: white;
+}
+
+#episodeInfo{
+  font-size: 24px;
+  background-color: blue;
+  color: white;
+}
+
+#stationLabelDiv {
+  width: 140px;
+  float:left;
+  overflow: hidden;
+}
+
+.cgStationLine {
+  width: 140px;
+  height: 50px;
+  background-color: lightcyan;
+  font-size: 18px;
+  margin-bottom: 0px;
+  border:solid;
+  border-width: 1px;
+  text-align: center;
+}
+
+#cgData {
+  width: 1440px;      /* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width */
+  overflow: hidden;
+  float:left;
+  font-size: 14px;
+}
+
+#cgBackward {
+  float:left;
+  font-size: 10px;
+  height: 525px;
+  line-height: 525px;
+}
+
+#cgForward {
+  float:left;
+  font-size: 10px;
+  height: 525px;
+  line-height: 525px;
+}
+
+.timeLine {
+  height: 50px;
+  width: 50000px;
+  background-color: lightblue;
+  font-size: 24px;
+
+  margin-bottom: 0px;
+  border:solid;
+  border-width: 1px;
+}
+
+.thirtyMinuteTime {
+  width: 240px;
+  height: 48px;
+  /*border:solid;
+  border-width: 1px;*/
+  padding:5px 10px;
+  font-size: 24px;
+  display:inline-block;
+  text-align: center;
+
+  border:solid;
+  /*border-right: 1px;*/
+  border-right-width: 1px;
+  border-left-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width:0px;
+  border-right-color: black;
+  border-left-color: black;
+
+  background-color: lightblue;
+}
+
+
+.cgLine {
+  height: 50px;
+  width: 50000px;
+  background-color: coral;
+}
+
+
+.thirtyMinuteButton {
+  display:inline-block;
+  width: 240px;
+  padding:5px 10px;
+  font-size: 24px;
+  height: 48px;
+  background-color: lightcyan;
+  max-width: 240px;
+  max-height: 48px;
+
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow:    ellipsis;
+}
+
+.sixtyMinuteButton {
+  display:inline-block;
+  width: 480px;
+  padding:5px 10px;
+  font-size: 24px;
+  height: 48px;
+  background-color: lightcyan;
+  max-width: 480px;
+  max-height: 48px;
+
+  white-space: nowrap;
+  width: 100%;                   /* IE6 needs any width */
+  overflow: hidden;              /* "overflow" value must be different from  visible"*/
+  -o-text-overflow: ellipsis;    /* Opera < 11*/
+  text-overflow:    ellipsis;    /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
+}
+
+.variableButton {
+  display:inline-block;
+  /*padding:5px 10px;*/
+  padding:0px 0px;
+  font-size: 24px;
+  height: 48px;
+  background-color: lightcyan;
+  max-height: 48px;
+
+  white-space: nowrap;
+  width: 100%;                   /* IE6 needs any width */
+  overflow: hidden;              /* "overflow" value must be different from  visible"*/
+  -o-text-overflow: ellipsis;    /* Opera < 11*/
+  text-overflow:    ellipsis;    /* IE, Safari (WebKit), Opera >= 11, FF > 6 */
+}
+
+
+#trickModeKeys {
+  width: 50%;
+  margin: 0 auto;
+}
+
+#channel {
+  color: white;
+  position: fixed;
+  top: 50px;
+  right: 10%
+}
+
