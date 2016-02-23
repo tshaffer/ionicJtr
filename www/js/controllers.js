@@ -32,7 +32,7 @@ angular.module('jtr.controllers', [])
 
 })
 
-.controller('RecordingsCtrl', function($scope, jtrServerService) {
+.controller('RecordingsCtrl', function($scope, jtrServerService, jtrStationsService) {
 
   $scope.doRefresh = function() {
     console.log("start refresh");
@@ -50,7 +50,10 @@ angular.module('jtr.controllers', [])
     });
   }
 
-  $scope.show();
+  var getStationsPromise = jtrStationsService.getStations();
+  getStationsPromise.then(function() {
+    $scope.show();
+  });
 })
 
 .controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
@@ -81,7 +84,40 @@ angular.module('jtr.controllers', [])
 })
 
 
-.controller('ChannelGuideCtrl', function($scope) {
+.controller('ChannelGuideCtrl', function($scope, jtrStationsService, jtrEpgFactory) {
+
+  $scope.cgData = [];
+
+  $scope.getEpgDataPromise = null;
+
+  $scope.stations = jtrStationsService.getStationsResult();
+
+  // initialize epg data
+  $scope.numDaysEpgData = 3;
+  //$scope.retrieveEpgData();
+
+  var promise = jtrEpgFactory.retrieveEpgData();
+  promise.then(function() {
+    console.log("jtrEpgFactory returned success");
+
+    $scope.epgProgramSchedule = jtrEpgFactory.getEpgProgramSchedule();
+    $scope.epgProgramScheduleStartDateTime = jtrEpgFactory.getEpgProgramScheduleStartDateTime();
+
+    // from view
+    $scope.channelGuideDisplayStartDateTime = null;
+    $scope.channelGuideDisplayEndDateTime = null;
+    $scope.channelGuideDisplayCurrentDateTime = null;
+    $scope.channelGuideDisplayCurrentEndDateTime = null;
+
+    $scope._currentSelectedProgramButton = null;
+    $scope._currentStationIndex = null;
+
+    $scope.widthOfThirtyMinutes = 240;    // pixels
+    $scope.channelGuideHoursDisplayed = 3;
+
+    //$scope.show();
+  });
+
 })
 
 .controller('ScheduledRecordingsCtrl', function($scope) {
