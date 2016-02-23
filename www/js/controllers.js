@@ -200,9 +200,9 @@ angular.module('jtr.controllers', [])
     //$scope.manualRecordingParameters.title = $scope.getRecordingTitle("#manualRecordTitle", dateObj, $scope.inputSource, $scope.channel);
     $scope.manualRecordingParameters.title = this.title;
     $scope.manualRecordingParameters.dateTime = dateObj;
-    $scope.manualRecordingParameters.duration = $scope.duration.toString();
-    $scope.manualRecordingParameters.inputSource = $scope.inputSource;
-    $scope.manualRecordingParameters.channel = $scope.channel.toString();
+    $scope.manualRecordingParameters.duration = this.duration.toString();
+    $scope.manualRecordingParameters.inputSource = this.inputSource;
+    $scope.manualRecordingParameters.channel = this.channel.toString();
 
     console.log("invoke jtrServerService.manualRecording");
 
