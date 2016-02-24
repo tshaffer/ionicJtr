@@ -417,7 +417,7 @@ angular.module('jtr.controllers', [])
       var stationIndex = jtrStationsService.getStationIndexFromName(stationNumber)
       var stationRow = $("#cgData").children()[stationIndex + 1];
       $scope._currentSelectedProgramButton = $(stationRow).children()[0];
-      $scope.selectProgram(null, $scope._currentSelectedProgramButton, 0);
+      $scope.selectProgram(null, $scope._currentSelectedProgramButton);
       $scope._currentStationIndex = stationIndex;
     });
 
