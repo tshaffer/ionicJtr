@@ -79,19 +79,29 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   overflow: hidden;
 }
 
+/* current day/date and station labels */
 .cgStationLine {
   width: 140px;
-  height: 50px;
+  height: 40px;
   background-color: lightcyan;
-  font-size: 18px;
+  font-size: 14px;
   margin-bottom: 0px;
   border:solid;
   border-width: 1px;
   text-align: center;
+  /*width: 140px;*/
+  /*height: 50px;*/
+  /*background-color: lightcyan;*/
+  /*font-size: 18px;*/
+  /*margin-bottom: 0px;*/
+  /*border:solid;*/
+  /*border-width: 1px;*/
+  /*text-align: center;*/
 }
 
 #cgData {
-  width: 1440px;      /* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width */
+  /*width: 1440px;      !* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width *!*/
+  width: 400px;      /* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width */
   overflow: hidden;
   float:left;
   font-size: 14px;
@@ -112,7 +122,7 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 }
 
 .timeLine {
-  height: 50px;
+  height: 40px;
   width: 50000px;
   background-color: lightblue;
   font-size: 24px;
@@ -122,18 +132,22 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   border-width: 1px;
 }
 
+/*timeline across the top*/
 .thirtyMinuteTime {
-  width: 240px;
-  height: 48px;
-  /*border:solid;
-  border-width: 1px;*/
+  width: 200px;
+  height: 38px;
   padding:5px 10px;
-  font-size: 24px;
+  font-size: 18px;
   display:inline-block;
   text-align: center;
+  /*width: 240px;*/
+  /*height: 48px;*/
+  /*padding:5px 10px;*/
+  /*font-size: 24px;*/
+  /*display:inline-block;*/
+  /*text-align: center;*/
 
   border:solid;
-  /*border-right: 1px;*/
   border-right-width: 1px;
   border-left-width: 0px;
   border-top-width: 0px;
@@ -146,21 +160,21 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 
 
 .cgLine {
-  height: 50px;
+  height: 40px;
   width: 50000px;
   background-color: coral;
 }
 
-
+/*30 minute long show*/
 .thirtyMinuteButton {
   display:inline-block;
-  width: 240px;
+  width: 200px;
   padding:5px 10px;
-  font-size: 24px;
-  height: 48px;
+  font-size: 18px;
+  height: 40px;
   background-color: lightcyan;
-  max-width: 240px;
-  max-height: 48px;
+  max-width: 200px;
+  max-height: 40px;
 
   white-space: nowrap;
   width: 100%;
@@ -169,15 +183,16 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   text-overflow:    ellipsis;
 }
 
+/*60 minute long show */
 .sixtyMinuteButton {
   display:inline-block;
-  width: 480px;
+  width: 400px;
   padding:5px 10px;
-  font-size: 24px;
-  height: 48px;
+  font-size: 18px;
+  height: 40px;
   background-color: lightcyan;
-  max-width: 480px;
-  max-height: 48px;
+  max-width: 400px;
+  max-height: 40px;
 
   white-space: nowrap;
   width: 100%;                   /* IE6 needs any width */
@@ -190,10 +205,10 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   display:inline-block;
   /*padding:5px 10px;*/
   padding:0px 0px;
-  font-size: 24px;
-  height: 48px;
+  font-size: 18px;
+  height: 40px;
   background-color: lightcyan;
-  max-height: 48px;
+  max-height: 40px;
 
   white-space: nowrap;
   width: 100%;                   /* IE6 needs any width */

@@ -282,7 +282,8 @@ angular.module('jtr.controllers', [])
 
     $scope.channelGuideDisplayStartDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), startHour, startMinute, 0, 0);
     $scope.channelGuideDisplayCurrentDateTime = new Date($scope.channelGuideDisplayStartDateTime);
-    $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(3);
+    //$scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(3);
+    $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(1);
 
     // start date/time of data structure containing channel guide data
     var channelGuideDataStructureStartDateTime = $scope.getProgramScheduleStartDateTime();
@@ -449,8 +450,8 @@ angular.module('jtr.controllers', [])
     $scope._currentSelectedProgramButton = null;
     $scope._currentStationIndex = null;
 
-    $scope.widthOfThirtyMinutes = 240;    // pixels
-    $scope.channelGuideHoursDisplayed = 3;
+    $scope.widthOfThirtyMinutes = 200;    // pixels
+    $scope.channelGuideHoursDisplayed = 1;
 
     $scope.show();
   });
