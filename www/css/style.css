@@ -74,17 +74,17 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 }
 
 #stationLabelDiv {
-  width: 140px;
+  width: 90px;
   float:left;
   overflow: hidden;
 }
 
 /* current day/date and station labels */
 .cgStationLine {
-  width: 140px;
+  width: 90px;
   height: 40px;
   background-color: lightcyan;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 0px;
   border:solid;
   border-width: 1px;
@@ -101,7 +101,7 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 
 #cgData {
   /*width: 1440px;      !* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width *!*/
-  width: 400px;      /* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width */
+  width: 240px;      /* number of 30 minute blocks displayed is this number / .thirtyMinuteButton.width */
   overflow: hidden;
   float:left;
   font-size: 14px;
@@ -134,10 +134,10 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 
 /*timeline across the top*/
 .thirtyMinuteTime {
-  width: 200px;
+  width: 120px;
   height: 38px;
   padding:5px 10px;
-  font-size: 18px;
+  font-size: 14px;
   display:inline-block;
   text-align: center;
   /*width: 240px;*/
@@ -168,12 +168,12 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 /*30 minute long show*/
 .thirtyMinuteButton {
   display:inline-block;
-  width: 200px;
+  width: 120px;
   padding:5px 10px;
-  font-size: 18px;
+  font-size: 14px;
   height: 40px;
   background-color: lightcyan;
-  max-width: 200px;
+  max-width: 120px;
   max-height: 40px;
 
   white-space: nowrap;
@@ -186,12 +186,12 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 /*60 minute long show */
 .sixtyMinuteButton {
   display:inline-block;
-  width: 400px;
+  width: 240px;
   padding:5px 10px;
-  font-size: 18px;
+  font-size: 14px;
   height: 40px;
   background-color: lightcyan;
-  max-width: 400px;
+  max-width: 240px;
   max-height: 40px;
 
   white-space: nowrap;
@@ -205,7 +205,7 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   display:inline-block;
   /*padding:5px 10px;*/
   padding:0px 0px;
-  font-size: 18px;
+  font-size: 14px;
   height: 40px;
   background-color: lightcyan;
   max-height: 40px;

@@ -450,7 +450,7 @@ angular.module('jtr.controllers', [])
     $scope._currentSelectedProgramButton = null;
     $scope._currentStationIndex = null;
 
-    $scope.widthOfThirtyMinutes = 200;    // pixels
+    $scope.widthOfThirtyMinutes = 120;    // pixels
     $scope.channelGuideHoursDisplayed = 1;
 
     $scope.show();
