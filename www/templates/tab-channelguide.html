@@ -26,7 +26,7 @@
       <p class="cgStationLine">44 KBCW</p>
     </div>
 
-    <div id="cgData" ng-keydown="handleKeyPress($event);">
+    <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();" on-drag-left="onDragLeft();" on-drag-right="onDragRight();">
       <div id="cgTimeLine" class="timeLine"></div>
       <div ng-repeat="station in cgData" class="cgLine" id="cgStation{{$index}}Data">
         <cg-program ng-repeat="program in station.programs"></cg-program>

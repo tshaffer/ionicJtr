@@ -86,6 +86,26 @@ angular.module('jtr.controllers', [])
 
 .controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory) {
 
+  $scope.onSwipeLeft = function() {
+    console.log("onSwipeLeft invoked");
+    alert("pizza left");
+  };
+
+  $scope.onSwipeRight = function() {
+    console.log("onSwipeRight invoked");
+    alert("pizza right");
+  };
+
+  $scope.onDragLeft = function() {
+    console.log("onDragLeft invoked");
+    alert("pizza drag left");
+  };
+
+  $scope.onDragRight = function() {
+    console.log("onDragRight invoked");
+    alert("pizza drag right");
+  };
+
   $scope.parseProgramId = function (programUIElement) {
 
     var programInfo = {};
