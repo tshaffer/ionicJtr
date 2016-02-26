@@ -107,7 +107,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     url: '/recordings/:recordingId',
     views: {
       'tab-recordings': {
-        templateUrl: 'templates/recording-detail.html',
+        templateUrl: 'recordings/recordingDetails.html',
         controller: 'RecordingDetailCtrl'
       }
     }
