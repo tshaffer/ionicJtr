@@ -117,8 +117,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     url: '/channelguide',
     views: {
       'tab-channelguide': {
-        //templateUrl: 'templates/tab-channelguide.html',
-        templateUrl: 'channelGuide/tab-channelguide.html',
+        templateUrl: 'channelGuide/channelGuide.html',
         controller: 'ChannelGuideCtrl'
       }
     }
