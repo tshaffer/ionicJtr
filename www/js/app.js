@@ -137,7 +137,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     url: '/manualrecord',
     views: {
       'tab-manualrecord': {
-        templateUrl: 'templates/tab-manualrecord.html',
+        templateUrl: 'manualRecord/manualRecord.html',
         controller: 'ManualRecordCtrl'
       }
     }
