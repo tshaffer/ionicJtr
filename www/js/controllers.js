@@ -98,12 +98,10 @@ angular.module('jtr.controllers', [])
 
   $scope.onDragLeft = function() {
     console.log("onDragLeft invoked");
-    alert("pizza drag left");
   };
 
   $scope.onDragRight = function() {
     console.log("onDragRight invoked");
-    alert("pizza drag right");
   };
 
   $scope.parseProgramId = function (programUIElement) {
