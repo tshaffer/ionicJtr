@@ -3,7 +3,7 @@
  */
 angular.module('jtr').directive("cgProgram", function() {
     return {
-        templateUrl: 'templates/cgProgram.html',
+        templateUrl: 'channelGuide/cgProgram.html',
         replace: true,
         link: function(scope, elements, attrs) {
 
