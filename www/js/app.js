@@ -124,9 +124,9 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
   })
 
   .state('tab.program-details', {
-    url: '/channelGuide/:programId',
+    url: '/channelguide/:programId',
     views: {
-      'tab-recordings': {
+      'tab-channelguide': {
         templateUrl: 'channelGuide/programDetails.html',
         controller: 'ProgramDetailsCtrl'
       }

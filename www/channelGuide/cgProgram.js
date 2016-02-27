@@ -31,7 +31,7 @@ angular.module('jtr').directive("cgProgram", function() {
             var id = "show-" + scope.$parent.station.stationData.StationId + "-" + scope.program.indexIntoProgramList.toString();
             $(elements).attr("id",id);
 
-            $(elements).attr("href", href='#/tab/channelGuide/' + id);
+            $(elements).attr("href", href='#/tab/channelguide/' + id);
         }
     }
 })

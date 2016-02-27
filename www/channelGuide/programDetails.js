@@ -28,7 +28,7 @@ angular.module('jtr.controllers')
     //
     //$scope.recording = jtrServerService.getRecording($stateParams.recordingId);
     //$scope.playRecordedShow($scope.recording);
-    
+
     var programId = $stateParams.programId;
 
     var programInfo = jtrCGServices.parseProgramId(programId);
@@ -40,6 +40,64 @@ angular.module('jtr.controllers')
 
     var selectedProgram = programList[programIndex];
 
-    console.log("Pizza is good");
+    $scope.program = {};
+    $scope.program.Title = selectedProgram.title;
+
+    // display title (prominently)
+    $("#cgProgramName").text(selectedProgram.title);
+
+    // display day/date of selected program in upper left of channel guide
+    var programDayDate = dayDate(selectedProgram.date);
+    $("#cgDayDate").text(programDayDate);
+
+    $("#programInfo").empty();
+
+    // day, date, and time
+    var startTime = timeOfDay(selectedProgram.date);
+
+    var endDate = new Date(selectedProgram.date.getTime()).addMinutes(selectedProgram.duration);
+    var endTime = timeOfDay(endDate);
+
+    var dateTimeInfo = programDayDate + " " + startTime + " - " + endTime;
+
+    var episodeInfo = "";
+    if (selectedProgram.showType == "Series" && selectedProgram.newShow == 0) {
+      episodeInfo = "Rerun";
+      if (selectedProgram.originalAirDate != "") {
+        episodeInfo += ": original air date was " + selectedProgram.originalAirDate;
+        if (selectedProgram.seasonEpisode != "") {
+          episodeInfo += ", " + selectedProgram.seasonEpisode;
+        }
+      }
+    }
+
+    $("#cgDateTimeInfo").html(dateTimeInfo)
+
+    var episodeTitle = selectedProgram.episodeTitle;
+    if (episodeTitle == "") {
+      episodeTitle = "<br/>";
+    }
+    $("#cgEpisodeTitle").html(episodeTitle)
+
+    var programDescription = selectedProgram.longDescription;
+    if (programDescription == "") {
+      programDescription = selectedProgram.shortDescription;
+    }
+    if (programDescription == "") {
+      programDescription = "<br/>";
+    }
+    $("#cgDescription").html(programDescription)
+
+    var castMembers = selectedProgram.castMembers;
+    if (castMembers == "") {
+      castMembers = "<br/>";
+    }
+    $("#cgCastMembers").html(castMembers)
+
+    if (episodeInfo == "") {
+      episodeInfo = "<br/>";
+    }
+    $("#episodeInfo").html(episodeInfo)
+
   })
 
