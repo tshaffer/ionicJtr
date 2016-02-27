@@ -3,7 +3,7 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory) {
+.controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices) {
 
   $scope.navigateBackward = function (numHours) {
 
@@ -101,12 +101,8 @@ angular.module('jtr.controllers')
 
   $scope.parseProgramId = function (programUIElement) {
 
-    var programInfo = {};
-
     var programId = programUIElement.id;
-    var idParts = programId.split("-");
-    programInfo.stationId = idParts[1];
-    programInfo.programIndex = idParts[2];
+    var programInfo = jtrCGServices.parseProgramId(programId);
 
     return programInfo;
   };
@@ -405,24 +401,24 @@ angular.module('jtr.controllers')
     $("#cgTimeLine").append(toAppend);
 
     // setup handlers on children for browser - when user clicks on program to record, etc.
-    $("#cgData").click(function (event) {
-      var buttonClicked = event.target;
-      if (event.target.id != "") {
-        // presence of an id means that it's not a timeline button
-        var programInfo = $scope.parseProgramId($(event.target)[0]);
-        var programList = $scope.getProgramList(programInfo.stationId);
-        $scope.selectProgramTime = programList[programInfo.programIndex].date;
-
-        var stationIndex = jtrStationsService.getStationIndex(programInfo.stationId);
-        if (stationIndex >= 0) {
-          $scope._currentStationIndex = stationIndex;
-          $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
-          var programData = $scope.getSelectedStationAndProgram();
-
-          //jtrBroadcastService.broadcastMsg("cgRecordings", programData);
-        }
-      }
-    });
+    //$("#cgData").click(function (event) {
+    //  var buttonClicked = event.target;
+    //  if (event.target.id != "") {
+    //    // presence of an id means that it's not a timeline button
+    //    var programInfo = $scope.parseProgramId($(event.target)[0]);
+    //    var programList = $scope.getProgramList(programInfo.stationId);
+    //    $scope.selectProgramTime = programList[programInfo.programIndex].date;
+    //
+    //    var stationIndex = jtrStationsService.getStationIndex(programInfo.stationId);
+    //    if (stationIndex >= 0) {
+    //      $scope._currentStationIndex = stationIndex;
+    //      $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
+    //      var programData = $scope.getSelectedStationAndProgram();
+    //
+    //      //jtrBroadcastService.broadcastMsg("cgRecordings", programData);
+    //    }
+    //  }
+    //});
 
     var promise = jtrServerService.retrieveLastTunedChannel();
     promise.then(function(result) {

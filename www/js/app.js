@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServerService', 'jtr.jtrStationsService', 'jtr.jtrEpgFactory'])
+angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServerService', 'jtr.jtrStationsService', 'jtr.jtrEpgFactory', 'jtr.jtrCGServices'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -119,6 +119,16 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
       'tab-channelguide': {
         templateUrl: 'channelGuide/channelGuide.html',
         controller: 'ChannelGuideCtrl'
+      }
+    }
+  })
+
+  .state('tab.program-details', {
+    url: '/channelGuide/:programId',
+    views: {
+      'tab-recordings': {
+        templateUrl: 'channelGuide/programDetails.html',
+        controller: 'ProgramDetailsCtrl'
       }
     }
   })
