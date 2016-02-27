@@ -37,38 +37,54 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 }
 
 #cgProgramName {
-  font-size: 30px;
+  font-size: 16px;
   background-color: blue;
   color: white;
   margin-bottom: 0px;
 }
 
 #cgDateTimeInfo{
-  font-size: 24px;
+  font-size: 14px;
   background-color: blue;
   color: white;
 }
 
 #cgEpisodeTitle{
-  font-size: 24px;
+  font-size: 14px;
   background-color: blue;
   color: white;
 }
 
 #cgDescription {
-  font-size: 24px;
+  font-size: 14px;
   background-color: blue;
   color: white;
+
+  /*max-width: 1780px;*/
+  max-width: 350px;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow:    ellipsis;
 }
 
 #cgCastMembers {
-  font-size: 24px;
+  font-size: 14px;
   background-color: blue;
   color: white;
+
+  /*max-width: 1780px;*/
+  max-width: 350px;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow:    ellipsis;
 }
 
 #episodeInfo{
-  font-size: 24px;
+  font-size: 14px;
   background-color: blue;
   color: white;
 }
