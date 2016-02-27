@@ -28,10 +28,18 @@ angular.module('jtr.controllers')
     //
     //$scope.recording = jtrServerService.getRecording($stateParams.recordingId);
     //$scope.playRecordedShow($scope.recording);
-
-    console.log("Pizza is here");
-
+    
     var programId = $stateParams.programId;
+
     var programInfo = jtrCGServices.parseProgramId(programId);
+
+    var stationId = programInfo.stationId;
+    var programIndex = programInfo.programIndex;
+
+    var programList = jtrCGServices.getProgramList(stationId);
+
+    var selectedProgram = programList[programIndex];
+
+    console.log("Pizza is good");
   })
 

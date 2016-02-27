@@ -3,7 +3,11 @@
  */
 angular.module('jtr.jtrCGServices', [])
 
-  .service ('jtrCGServices', function() {
+  .service ('jtrCGServices', ['jtrEpgFactory', function(jtrEpgFactory) {
+
+    var self = this;
+
+    this.epgProgramSchedule = null;
 
     this.parseProgramId = function (programId) {
 
@@ -16,4 +20,14 @@ angular.module('jtr.jtrCGServices', [])
       return programInfo;
     };
 
-  })
+    this.getProgramList = function(stationId) {
+
+      if (this.epgProgramSchedule == null) {
+        this.epgProgramSchedule = jtrEpgFactory.getEpgProgramSchedule();
+      }
+      var programStationData = this.epgProgramSchedule[stationId];
+      return programStationData.programList;
+    };
+
+
+  }])
