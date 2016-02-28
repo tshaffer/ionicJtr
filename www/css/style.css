@@ -181,6 +181,13 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   background-color: coral;
 }
 
+.cgButton
+{
+  color: #000;
+  text-decoration: none;
+  border: 2px outset buttonface;
+}
+
 /*30 minute long show*/
 .thirtyMinuteButton {
   display:inline-block;

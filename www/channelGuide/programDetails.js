@@ -99,5 +99,18 @@ angular.module('jtr.controllers')
     }
     $("#episodeInfo").html(episodeInfo)
 
+    return;
+
+    $scope.selectProgramTime = programList[programInfo.programIndex].date;
+
+    var stationIndex = jtrStationsService.getStationIndex(stationId);
+    if (stationIndex >= 0) {
+      $scope._currentStationIndex = stationIndex;
+      $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
+      var programData = $scope.getSelectedStationAndProgram();
+
+      $jtrBroadcastService.broadcastMsg("cgRecordings", programData);
+    }
+
   })
 
