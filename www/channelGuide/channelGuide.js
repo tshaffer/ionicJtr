@@ -5,9 +5,9 @@ angular.module('jtr.controllers')
 
 .controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices) {
 
-  $scope.navigateBackward = function (numHours) {
+  $scope.navigateBackward = function (numMinutes) {
 
-    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(-numHours);
+    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(-numMinutes);
     if (newScrollToTime < $scope.channelGuideDisplayStartDateTime) {
       newScrollToTime = new Date($scope.channelGuideDisplayStartDateTime);
     }
@@ -18,12 +18,12 @@ angular.module('jtr.controllers')
   }
 
 
-  $scope.navigateForward = function (numHours) {
+  $scope.navigateForward = function (numMinutes) {
 
-    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(numHours);
-    var proposedEndTime = new Date(newScrollToTime).addHours($scope.channelGuideHoursDisplayed);
+    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(numMinutes);
+    var proposedEndTime = new Date(newScrollToTime).addMinutes($scope.channelGuideHoursDisplayed);
     if (proposedEndTime > $scope.channelGuideDisplayEndDateTime) {
-      newScrollToTime = new Date($scope.channelGuideDisplayEndDateTime).addHours(-numHours);
+      newScrollToTime = new Date($scope.channelGuideDisplayEndDateTime).addMinutes(-numMinutes);
     }
     $scope.scrollToTime(newScrollToTime)
     $scope.updateTextAlignment();
@@ -48,9 +48,20 @@ angular.module('jtr.controllers')
 
   $scope.scrollToTime = function (newScrollToTime) {
 
-    var slotsToScroll = $scope.getSlotIndex(newScrollToTime);
+    console.log("scrollToTime: " + newScrollToTime);
 
-    $("#cgData").scrollLeft(slotsToScroll * $scope.widthOfThirtyMinutes)
+    var startMinute = (parseInt(newScrollToTime.getMinutes() / 30) * 30) % 60;
+    var startHour = newScrollToTime.getHours();
+
+    var roundedDownScrollToTime = new Date(newScrollToTime.getFullYear(), newScrollToTime.getMonth(), newScrollToTime.getDate(), startHour, startMinute, 0, 0);
+
+    var timeDiffInMinutes = msecToMinutes(newScrollToTime.getTime() - roundedDownScrollToTime.getTime());
+
+    var slotsToScroll = $scope.getSlotIndex(roundedDownScrollToTime);
+    var scrollLeftValue = (slotsToScroll * $scope.widthOfThirtyMinutes) + (timeDiffInMinutes / 30 * $scope.widthOfThirtyMinutes);
+
+    //$("#cgData").scrollLeft(slotsToScroll * $scope.widthOfThirtyMinutes)
+    $("#cgData").scrollLeft(scrollLeftValue);
 
     $scope.channelGuideDisplayCurrentDateTime = newScrollToTime;
     $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours($scope.channelGuideHoursDisplayed);
@@ -81,22 +92,22 @@ angular.module('jtr.controllers')
 
   $scope.onSwipeLeft = function() {
     console.log("onSwipeLeft invoked");
-    $scope.navigateForward(1);
+    $scope.navigateForward(30);
   };
 
   $scope.onSwipeRight = function() {
     console.log("onSwipeRight invoked");
-    $scope.navigateBackward(1);
+    $scope.navigateBackward(30);
   };
 
   $scope.onDragLeft = function() {
     console.log("onDragLeft invoked");
-    $scope.navigateForward(1);
+    $scope.navigateForward(5);
   };
 
   $scope.onDragRight = function() {
     console.log("onDragRight invoked");
-    $scope.navigateBackward(1);
+    $scope.navigateBackward(5);
   };
 
   $scope.parseProgramId = function (programUIElement) {
