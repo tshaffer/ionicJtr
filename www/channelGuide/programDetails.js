@@ -39,6 +39,7 @@ angular.module('jtr.controllers')
     var programList = jtrCGServices.getProgramList(stationId);
 
     var selectedProgram = programList[programIndex];
+    var programTime = programList[programIndex].date;
 
     $scope.program = {};
     $scope.program.Title = selectedProgram.title;
@@ -99,18 +100,14 @@ angular.module('jtr.controllers')
     }
     $("#episodeInfo").html(episodeInfo)
 
-    return;
-
-    $scope.selectProgramTime = programList[programInfo.programIndex].date;
-
-    var stationIndex = jtrStationsService.getStationIndex(stationId);
-    if (stationIndex >= 0) {
-      $scope._currentStationIndex = stationIndex;
-      $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
-      var programData = $scope.getSelectedStationAndProgram();
-
-      $jtrBroadcastService.broadcastMsg("cgRecordings", programData);
-    }
+    //var stationIndex = jtrStationsService.getStationIndex(stationId);
+    //if (stationIndex >= 0) {
+    //  $scope._currentStationIndex = stationIndex;
+    //  $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
+    //  var programData = $scope.getSelectedStationAndProgram();
+    //
+    //  $jtrBroadcastService.broadcastMsg("cgRecordings", programData);
+    //}
 
   })
 
