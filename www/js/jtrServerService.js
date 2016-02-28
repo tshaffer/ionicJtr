@@ -110,5 +110,15 @@ angular.module('jtr.jtrServerService', [])
       return promise;
     };
 
+    this.getScheduledRecordings = function(currentDateTime) {
+
+      var url = self.baseUrl + "scheduledRecordings";
+
+      var promise = $http.get(url, {
+        params: currentDateTime
+      });
+      return promise;
+    };
+
 
   }])

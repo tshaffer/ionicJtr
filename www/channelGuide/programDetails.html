@@ -1,10 +1,39 @@
 <ion-view view-title="{{program.Title}}">
   <ion-content class="padding">
-    <!--<div id="cgProgramName"></div>-->
+    <div id="cgProgramName"></div>
     <div id="cgDateTimeInfo"></div>
     <div id="cgEpisodeTitle"></div>
     <div id="cgDescription"></div>
     <div id="cgCastMembers"></div>
     <div id="episodeInfo"></div>
+
+    <button id="btnCancelRecording" class="button button-block button-stable" ng-show="displayCancelRecording">
+      Cancel Recording
+    </button>
+
+    <button id="btnCancelSeries" class="button button-block button-stable" ng-show="displayCancelSeries">
+      Cancel Series
+    </button>
+
+    <button id="btnRecord" class="button button-block button-stable" ng-show="displayRecord">
+      Record
+    </button>
+
+    <button id="btnRecordEpisode" class="button button-block button-stable" ng-show="displayRecordEpisode">
+      Record Episode
+    </button>
+
+    <button id="btnRecordSeries" class="button button-block button-stable" ng-show="displayRecordSeries">
+      Record Series
+    </button>
+
+    <button id="btnViewUpcomingEpisodes" class="button button-block button-stable" ng-show="displayViewUpcomingEpisodes">
+      View Upcoming Episodes
+    </button>
+
+    <button id="btnTune" class="button button-block button-stable" ng-show="displayTune">
+      Tune
+    </button>
+
   </ion-content>
 </ion-view>
