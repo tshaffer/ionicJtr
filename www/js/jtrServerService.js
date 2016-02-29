@@ -141,4 +141,16 @@ angular.module('jtr.jtrServerService', [])
     };
 
 
+    this.deleteScheduledRecording = function (scheduledRecordingId) {
+
+      var url = self.baseUrl + "deleteScheduledRecording";
+      var commandData = { "scheduledRecordingId": scheduledRecordingId };
+
+      var promise = $http.get(url, {
+        params: commandData
+      });
+      return promise;
+    };
+
+
   }])

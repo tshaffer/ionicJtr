@@ -48,6 +48,14 @@ angular.module('jtr.controllers')
       })
     }
 
+    $scope.invokeCancelRecording = function() {
+
+      var promise = jtrServerService.deleteScheduledRecording($scope.cgSelectedProgram.scheduledRecordingId);
+      promise.then(function() {
+        $scope.retrieveScheduledRecordings();
+      })
+    }
+
     $scope.retrieveScheduledRecordings = function() {
 
       var currentDateTimeIso = new Date().toISOString();
