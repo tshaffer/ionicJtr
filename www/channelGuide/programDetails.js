@@ -3,7 +3,64 @@
  */
 angular.module('jtr.controllers')
 
-  .controller('ProgramDetailsCtrl', function($scope, $stateParams, jtrServerService, jtrCGServices, jtrStationsService) {
+  .controller('ProgramDetailsCtrl', function($scope, $stateParams, jtrSettingsService, jtrServerService, jtrCGServices, jtrStationsService, jtrSettingsService) {
+
+    $scope.startTimeOffsets = [-15, -10, -5, 0, 5, 10, 15];
+    $scope.stopTimeOffsets = [-30, -15, -10, -5, 0, 5, 10, 15, 30, 60, 90, 120, 180];
+
+    $scope.addRecordToDB = true;
+
+    $scope.invokeRecordEpisode = function() {
+
+      $scope.cgSelectedProgram.startTimeOffset = $scope.startTimeOffsets[$scope.startTimeIndex];
+      $scope.cgSelectedProgram.stopTimeOffset = $scope.stopTimeOffsets[$scope.stopTimeIndex];
+
+      if ($scope.addRecordToDB) {
+        var stationName = jtrStationsService.getStationFromId($scope.cgSelectedStationId);
+        stationName = stationName.replace(".", "-");
+
+        var commandData = {
+          "command": "addRecord",
+          "dateTime": $scope.cgSelectedProgram.date,
+          "title": $scope.cgSelectedProgram.title,
+          "duration": $scope.cgSelectedProgram.duration,
+          "inputSource": "tuner",
+          "channel": stationName,
+          "recordingBitRate": jtrSettingsService.getSettingsResult().RecordingBitRate,
+          "segmentRecording": jtrSettingsService.getSettingsResult().SegmentRecordings,
+          "scheduledSeriesRecordingId": $scope.cgSelectedProgram.scheduledSeriesRecordingId,
+          "startTimeOffset": $scope.cgSelectedProgram.startTimeOffset,
+          "stopTimeOffset": $scope.cgSelectedProgram.stopTimeOffset
+        };
+      }
+      else {
+        var commandData = {
+          "command": "updateScheduledRecording",
+          "id": $scope.cgSelectedProgram.scheduledRecordingId,
+          "startTimeOffset": $scope.cgSelectedProgram.startTimeOffset,
+          "stopTimeOffset": $scope.cgSelectedProgram.stopTimeOffset
+        };
+      }
+
+      var promise = jtrServerService.browserCommand(commandData);
+      promise.then(function() {
+        $scope.retrieveScheduledRecordings();
+      })
+    }
+
+    $scope.retrieveScheduledRecordings = function() {
+
+      var currentDateTimeIso = new Date().toISOString();
+      var currentDateTime = {"currentDateTime": currentDateTimeIso};
+      var promise = jtrServerService.getScheduledRecordings(currentDateTime);
+      promise.then(function(scheduledRecordings) {
+        $scope.scheduledRecordings = [];
+        $.each(scheduledRecordings, function (index, scheduledRecording) {
+          $scope.scheduledRecordings.push(scheduledRecording);
+        });
+      });
+    }
+
 
     $scope.programsMatch = function (scheduledRecording, cgProgram, cgStationId) {
 
@@ -11,9 +68,9 @@ angular.module('jtr.controllers')
       var channel = jtrStationsService.getChannelFromStationIndex(cgStationId);
       if (channel != scheduledRecording.Channel) return false;
 
-      if (scheduledRecording.Title != this.cgSelectedProgram.title) return false;
+      if (scheduledRecording.Title != $scope.cgSelectedProgram.title) return false;
 
-      if (new Date(scheduledRecording.DateTime).getTime() != this.cgSelectedProgram.date.getTime()) return false;
+      if (new Date(scheduledRecording.DateTime).getTime() != $scope.cgSelectedProgram.date.getTime()) return false;
 
       return true;
     }
@@ -150,37 +207,37 @@ angular.module('jtr.controllers')
 
         var scheduledRecordings =  results.data;
 
-        var cgSelectedProgram = programData.program;
-        var cgSelectedStationId = programData.stationId;
+        $scope.cgSelectedProgram = programData.program;
+        $scope.cgSelectedStationId = programData.stationId;
 
-        var stopTimeIndex = $scope.stopTimeOnTimeIndex;
-        var startTimeIndex = $scope.startTimeOnTimeIndex;
+        $scope.stopTimeIndex = $scope.stopTimeOnTimeIndex;
+        $scope.startTimeIndex = $scope.startTimeOnTimeIndex;
 
         // check the program that the user has clicked
         // display different pop ups based on
         //      single vs. series
         //      already scheduled to record or not
         var cgSelectedProgramScheduledToRecord = false;
-        cgSelectedProgram.scheduledRecordingId = -1;
-        cgSelectedProgram.scheduledSeriesRecordingId = -1;
-        cgSelectedProgram.startTimeOffset = 0;
-        cgSelectedProgram.stopTimeOffset = 0;
+        $scope.cgSelectedProgram.scheduledRecordingId = -1;
+        $scope.cgSelectedProgram.scheduledSeriesRecordingId = -1;
+        $scope.cgSelectedProgram.startTimeOffset = 0;
+        $scope.cgSelectedProgram.stopTimeOffset = 0;
 
         $.each(scheduledRecordings, function (index, scheduledRecording) {
-          cgSelectedProgramScheduledToRecord = $scope.programsMatch(scheduledRecording, cgSelectedProgram, cgSelectedStationId);
+          cgSelectedProgramScheduledToRecord = $scope.programsMatch(scheduledRecording, $scope.cgSelectedProgram, $scope.cgSelectedStationId);
           if (cgSelectedProgramScheduledToRecord) {
-            cgSelectedProgram.scheduledRecordingId = scheduledRecording.Id;
-            cgSelectedProgram.scheduledSeriesRecordingId = scheduledRecording.ScheduledSeriesRecordingId;
-            cgSelectedProgram.startTimeOffset = scheduledRecording.StartTimeOffset;
-            cgSelectedProgram.stopTimeOffset = scheduledRecording.StopTimeOffset;
+            $scope.cgSelectedProgram.scheduledRecordingId = scheduledRecording.Id;
+            $scope.cgSelectedProgram.scheduledSeriesRecordingId = scheduledRecording.ScheduledSeriesRecordingId;
+            $scope.cgSelectedProgram.startTimeOffset = scheduledRecording.StartTimeOffset;
+            $scope.cgSelectedProgram.stopTimeOffset = scheduledRecording.StopTimeOffset;
             return false;
           }
         });
 
         //$scope.modalTitle = $scope.cgSelectedProgram.title;
         //
-        if (cgSelectedProgram.showType == "Series") {
-          if (cgSelectedProgram.scheduledRecordingId == -1) {
+        if ($scope.cgSelectedProgram.showType == "Series") {
+          if ($scope.cgSelectedProgram.scheduledRecordingId == -1) {
             // not yet scheduled to record
             //$scope.items = $scope.recordSeriesItems;
             $scope.setVisibility(false, false, false, true, true, true, true);
@@ -188,7 +245,7 @@ angular.module('jtr.controllers')
           //displayCancelRecording, displayCancelSeries, displayRecord, displayRecordEpisode, displayRecordSeries, displayViewUpcomingEpisodes
           else {
             // previously scheduled to record
-            if (cgSelectedProgram.scheduledSeriesRecordingId > 0) {
+            if ($scope.cgSelectedProgram.scheduledSeriesRecordingId > 0) {
               //$scope.items = $scope.scheduledSeriesItems;
               $scope.setVisibility(true, true, false, false, false, true, true);
             }
@@ -200,7 +257,7 @@ angular.module('jtr.controllers')
         }
         else        // single program recordings (not series)
         {
-          if (cgSelectedProgram.scheduledRecordingId == -1) {         // no recording set
+          if ($scope.cgSelectedProgram.scheduledRecordingId == -1) {         // no recording set
             //$scope.items = $scope.recordEpisodeItems;
             $scope.setVisibility(false, false, true, false, false, true, true);
           }

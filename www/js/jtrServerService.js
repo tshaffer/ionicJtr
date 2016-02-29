@@ -12,14 +12,14 @@ angular.module('jtr.jtrServerService', [])
     console.log("document.baseURI=" + document.baseURI);
     console.log("set baseURL from document:" + baseURL);
     if (baseURL.indexOf("localhost") >= 0) {
-      this.baseUrl = "http://192.168.0.104:8080/";
-      //this.baseUrl = "http://10.1.0.169:8080/";
+      //this.baseUrl = "http://192.168.0.104:8080/";
+      this.baseUrl = "http://10.1.0.169:8080/";
     }
     else {
       this.baseUrl = document.baseURI.substr(0, document.baseURI.lastIndexOf(":")) + ":8080/";
     }
-    this.baseUrl = "http://192.168.0.104:8080/";
-    //this.baseUrl = "http://10.1.0.169:8080/";
+    //this.baseUrl = "http://192.168.0.104:8080/";
+    this.baseUrl = "http://10.1.0.169:8080/";
 
     this.browserCommand = function(commandData) {
 
@@ -31,6 +31,26 @@ angular.module('jtr.jtrServerService', [])
 
       var promise = $http.get(url, {
         params: commandData
+      });
+      return promise;
+    };
+
+
+    this.getSettings = function() {
+
+      var url = self.baseUrl + "getSettings";
+
+      var promise = $http.get(url, {});
+      return promise;
+    };
+
+
+    this.setSettings = function(settings) {
+
+      var url = self.baseUrl + "setSettings";
+
+      var promise = $http.get(url, {
+        params: settings
       });
       return promise;
     };
@@ -50,8 +70,8 @@ angular.module('jtr.jtrServerService', [])
     this.getRecordings = function () {
 
       console.log("jtrServerService::getRecordings");
-      var promise = $http.get('http://192.168.0.104:8080/getRecordings');
-      //var promise = $http.get('http://10.1.0.169:8080/getRecordings');
+      //var promise = $http.get('http://192.168.0.104:8080/getRecordings');
+      var promise = $http.get('http://10.1.0.169:8080/getRecordings');
       return promise;
 
       //  $http.get('http://192.168.0.103:8080/getRecordings').success(function(data) {

@@ -3,7 +3,7 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices) {
+.controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
 
   $scope.navigateBackward = function (numHours) {
 

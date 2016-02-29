@@ -3,7 +3,7 @@
  */
 angular.module('jtr.controllers')
 
-.controller('RecordingsCtrl', function($scope, jtrServerService, jtrStationsService) {
+.controller('RecordingsCtrl', function($scope, jtrServerService, jtrStationsService, jtrSettingsService) {
 
     $scope.doRefresh = function() {
       console.log("start refresh");
@@ -21,9 +21,11 @@ angular.module('jtr.controllers')
       });
     }
 
-    var getStationsPromise = jtrStationsService.getStations();
-    getStationsPromise.then(function() {
-      $scope.show();
-    });
-  })
+  var getStationsPromise = jtrStationsService.getStations();
+  var getSettingsPromise = jtrSettingsService.getSettings();
+
+  Promise.all([getStationsPromise, getSettingsPromise]).then(function () {
+    $scope.show();
+  });
+})
 
