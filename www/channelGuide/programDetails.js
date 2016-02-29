@@ -5,6 +5,8 @@ angular.module('jtr.controllers')
 
   .controller('ProgramDetailsCtrl', function($scope, $stateParams, jtrSettingsService, jtrServerService, jtrCGServices, jtrStationsService, jtrSettingsService) {
 
+    $scope.startTime = "On time";
+
     $scope.startTimeOffsets = [-15, -10, -5, 0, 5, 10, 15];
     $scope.stopTimeOffsets = [-30, -15, -10, -5, 0, 5, 10, 15, 30, 60, 90, 120, 180];
 

@@ -253,3 +253,15 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
   right: 10%
 }
 
+
+.modalLeftArrow {
+  margin-left: 70px;
+}
+
+.modalRightArrow {
+}
+
+.modalButton {
+  font-size: 20px;
+}
+

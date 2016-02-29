@@ -15,6 +15,16 @@
       Cancel Series
     </button>
 
+    <div>
+      <span class="modalButton">Start Time:</span>
+      <button class='button modalLeftArrow modalButton icon ion-ios-arrow-left button-clear button-dark'
+              ng-click="cgRecordOptionsNextEarlyStartTime()" aria-label='Left Align'></button>
+      <button class='button modalButton button-clear button-dark' id="cgRecordOptionsStartTimeLabel">{{startTime}}</button>
+      <button class='button modalRightArrow modalButton icon ion-ios-arrow-right button-clear button-dark'
+              ng-click="cgRecordOptionsNextLateStartTime()" aria-label='Left Align'></button>
+      <br/>
+    </div>
+
     <button id="btnRecord" class="button button-block button-stable" ng-show="displayRecord" ng-click="invokeRecordEpisode()">
       Record
     </button>
