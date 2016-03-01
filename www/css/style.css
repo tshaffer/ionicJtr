@@ -255,13 +255,19 @@ th.dayOfWeek, th.date, th.time, th.channel, th.stationName, th.title {
 
 
 .modalLeftArrow {
-  margin-left: 70px;
+  margin-left: 0px;
 }
 
 .modalRightArrow {
 }
 
 .modalButton {
-  font-size: 20px;
+  font-size: 14px;
+  vertical-align: middle;
+  padding: 0px;
 }
 
+.timeOffsetLabel {
+  margin-left: -8px;
+  margin-right: -8px;
+}

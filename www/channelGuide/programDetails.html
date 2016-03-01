@@ -17,11 +17,21 @@
 
     <div>
       <span class="modalButton">Start Time:</span>
-      <button class='button modalLeftArrow modalButton icon ion-ios-arrow-left button-clear button-dark'
+      <button class='button modalLeftArrow modalButton icon ion-arrow-left-c button-clear button-dark'
               ng-click="cgRecordOptionsNextEarlyStartTime()" aria-label='Left Align'></button>
-      <button class='button modalButton button-clear button-dark' id="cgRecordOptionsStartTimeLabel">{{startTime}}</button>
-      <button class='button modalRightArrow modalButton icon ion-ios-arrow-right button-clear button-dark'
+      <button class='button modalButton button-clear button-dark timeOffsetLabel' id="cgRecordOptionsStartTimeLabel">{{startTime}}</button>
+      <button class='button modalRightArrow modalButton icon ion-arrow-right-c button-clear button-dark'
               ng-click="cgRecordOptionsNextLateStartTime()" aria-label='Left Align'></button>
+      <br/>
+    </div>
+
+    <div>
+      <span class="modalButton">Stop Time:</span>
+      <button class='button modalLeftArrow modalButton icon ion-arrow-left-c button-clear button-dark'
+              ng-click="cgRecordOptionsNextEarlyStopTime()" aria-label='Left Align'></button>
+      <button class='button modalButton button-clear button-dark timeOffsetLabel' id="cgRecordOptionsStopTimeLabel">{{stopTime}}</button>
+      <button class='button modalRightArrow modalButton icon ion-arrow-right-c button-clear button-dark'
+              ng-click="cgRecordOptionsNextLateStopTime()" aria-label='Left Align'></button>
       <br/>
     </div>
 

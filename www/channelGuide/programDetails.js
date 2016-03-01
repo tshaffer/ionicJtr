@@ -5,10 +5,20 @@ angular.module('jtr.controllers')
 
   .controller('ProgramDetailsCtrl', function($scope, $stateParams, jtrSettingsService, jtrServerService, jtrCGServices, jtrStationsService, jtrSettingsService) {
 
-    $scope.startTime = "On time";
-
     $scope.startTimeOffsets = [-15, -10, -5, 0, 5, 10, 15];
     $scope.stopTimeOffsets = [-30, -15, -10, -5, 0, 5, 10, 15, 30, 60, 90, 120, 180];
+
+    $scope.startTimeOptions = ["15 minutes early", "10 minutes early", "5 minutes early", "On time", "5 minutes late", "10 minutes late", "15 minutes late"];
+    $scope.stopTimeOptions = ["30 minutes early", "15 minutes early", "10 minutes early", "5 minutes early", "On time", "5 minutes late", "10 minutes late", "15 minutes late", "30 minute late", "1 hour late", "1 1/2 hours late", "2 hours late", "3 hours late"];
+
+    $scope.startTimeOnTimeIndex = 3;
+    $scope.stopTimeOnTimeIndex = 4;
+
+    $scope.startTimeIndex = $scope.startTimeOnTimeIndex;
+    $scope.stopTimeIndex = $scope.stopTimeOnTimeIndex;
+
+    $scope.startTime = $scope.startTimeOptions[$scope.startTimeIndex];
+    $scope.stopTime = $scope.stopTimeOptions[$scope.stopTimeIndex];
 
     $scope.addRecordToDB = true;
 
@@ -71,6 +81,45 @@ angular.module('jtr.controllers')
       });
     }
 
+    $scope.cgRecordOptionsNextEarlyStartTime = function() {
+      console.log("recordOptionsNextEarlyStartTime invoked");
+      if ($scope.startTimeIndex > 0) {
+        $scope.startTimeIndex--;
+        $scope.displayStartTimeSetting();
+      }
+    }
+
+    $scope.cgRecordOptionsNextLateStartTime = function() {
+      console.log("cgRecordOptionsNextLateStartTime invoked");
+      if ($scope.startTimeIndex < ($scope.startTimeOptions.length-1)) {
+        $scope.startTimeIndex++;
+        $scope.displayStartTimeSetting();
+      }
+    }
+
+    $scope.cgRecordOptionsNextEarlyStopTime = function() {
+      console.log("cgRecordOptionsNextEarlyStopTime invoked");
+      if ($scope.stopTimeIndex > 0) {
+        $scope.stopTimeIndex--;
+        $scope.displayStopTimeSetting();
+      }
+    }
+
+    $scope.cgRecordOptionsNextLateStopTime = function() {
+      console.log("cgRecordOptionsNextLateStopTime invoked");
+      if ($scope.stopTimeIndex < ($scope.stopTimeOptions.length-1)) {
+        $scope.stopTimeIndex++;
+        $scope.displayStopTimeSetting();
+      }
+    }
+
+    $scope.displayStartTimeSetting = function () {
+      $scope.startTime = $scope.startTimeOptions[$scope.startTimeIndex];
+    }
+
+    $scope.displayStopTimeSetting = function () {
+      $scope.stopTime = $scope.stopTimeOptions[$scope.stopTimeIndex];
+    }
 
     $scope.programsMatch = function (scheduledRecording, cgProgram, cgStationId) {
 
@@ -94,32 +143,6 @@ angular.module('jtr.controllers')
       $scope.displayViewUpcomingEpisodes = displayViewUpcomingEpisodes;
       $scope.displayTune = displayTune;
     }
-
-    //$scope.playRecordedShow = function(recording) {
-    //  console.log("controller.js::Play recording: " + recording.Title);
-    //
-    //  var commandData;
-    //
-    //  var storedRecording = {
-    //    recordingId: recording.RecordingId,
-    //    relativeUrl: recording.relativeurl,
-    //    storageLocation: recording.storagelocation,
-    //    storageDevice: recording.storagedevice
-    //  };
-    //
-    //  commandData = {"command": "playRecordedShow", "storedRecording": storedRecording };
-    //
-    //  var promise = jtrServerService.browserCommand(commandData);
-    //  promise.then(function () {
-    //    console.log("browserCommand successfully sent");
-    //  })
-    //};
-    //
-    //
-    //$scope.recording = jtrServerService.getRecording($stateParams.recordingId);
-    //$scope.playRecordedShow($scope.recording);
-    $scope.startTimeOnTimeIndex = 3;
-    $scope.stopTimeOnTimeIndex = 4;
 
     var programId = $stateParams.programId;
 
@@ -276,37 +299,6 @@ angular.module('jtr.controllers')
             $scope.setVisibility(true, false, false, false, false, true, true);
           }
         }
-
-        //$scope.openModal = function (size) {
-        //
-        //  var modalInstance = $uibModal.open({
-        //    animation: $scope.animationsEnabled,
-        //    templateUrl: 'jtr.html',
-        //    controller: 'jtrModal',
-        //    size: size,
-        //    resolve: {
-        //      modalTitle: function() {
-        //        return $scope.modalTitle;
-        //      },
-        //      items: function () {
-        //        return $scope.items;
-        //      }
-        //    }
-        //  });
-        //
-        //  modalInstance.result.then(function (selectedItem, args) {
-        //    //$scope.selected = selectedItem;
-        //    $scope.dialogHandler(selectedItem);
-        //  }, function () {
-        //    console.log('Modal dismissed at: ' + new Date());
-        //    return;
-        //  });
-        //};
-        //
-        //$scope.animationsEnabled = true;
-        //
-        //$scope.openModal('sm');
-
       });
 
     }
