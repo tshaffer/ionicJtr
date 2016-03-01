@@ -22,6 +22,22 @@ angular.module('jtr.controllers')
 
     $scope.addRecordToDB = true;
 
+    $scope.invokeCancelRecording = function() {
+
+      var promise = jtrServerService.deleteScheduledRecording($scope.cgSelectedProgram.scheduledRecordingId);
+      promise.then(function() {
+        $scope.retrieveScheduledRecordings();
+      })
+    }
+
+    $scope.invokeCancelSeries = function () {
+
+      var promise = jtrServerService.deleteScheduledSeries($scope.cgSelectedProgram.scheduledSeriesRecordingId);
+      promise.then(function() {
+        $scope.retrieveScheduledRecordings();
+      })
+    }
+
     $scope.invokeRecordEpisode = function() {
 
       $scope.cgSelectedProgram.startTimeOffset = $scope.startTimeOffsets[$scope.startTimeIndex];
@@ -60,12 +76,39 @@ angular.module('jtr.controllers')
       })
     }
 
-    $scope.invokeCancelRecording = function() {
+    $scope.invokeRecordSeries = function() {
 
-      var promise = jtrServerService.deleteScheduledRecording($scope.cgSelectedProgram.scheduledRecordingId);
+      var stationName = jtrStationsService.getStationFromId($scope.cgSelectedStationId);
+      stationName = stationName.replace(".", "-");
+
+      var commandData = {
+        "command": "addSeries",
+        "title": $scope.cgSelectedProgram.title,
+        "inputSource": "tuner",
+        "channel": stationName,
+        //"recordingBitRate": $scope.getRecordingBitRate(),
+        //"segmentRecording": $scope.getSegmentRecordings()
+        "recordingBitRate": 6,
+        "segmentRecording": 0
+      };
+
+      var promise = jtrServerService.browserCommand(commandData);
       promise.then(function() {
         $scope.retrieveScheduledRecordings();
       })
+    }
+
+    $scope.invokeViewUpcomingEpisodes = function() {
+    }
+
+    $scope.invokeTune = function() {
+
+      var stationName = jtrStationsService.getStationFromId($scope.cgSelectedStationId);
+      stationName = stationName.replace(".", "-");
+
+      var commandData = { "command": "tuneLiveVideoChannel", "enteredChannel": stationName };
+
+      jtrServerService.browserCommand(commandData);
     }
 
     $scope.retrieveScheduledRecordings = function() {

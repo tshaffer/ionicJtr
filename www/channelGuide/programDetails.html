@@ -15,7 +15,7 @@
       Cancel Series
     </button>
 
-    <div>
+    <div ng-show="displayRecord || displayRecordEpisode">
       <span class="modalButton">Start Time:</span>
       <button class='button modalLeftArrow modalButton icon ion-arrow-left-c button-clear button-dark'
               ng-click="cgRecordOptionsNextEarlyStartTime()" aria-label='Left Align'></button>
@@ -25,7 +25,7 @@
       <br/>
     </div>
 
-    <div>
+    <div ng-show="displayRecord || displayRecordEpisode">
       <span class="modalButton">Stop Time:</span>
       <button class='button modalLeftArrow modalButton icon ion-arrow-left-c button-clear button-dark'
               ng-click="cgRecordOptionsNextEarlyStopTime()" aria-label='Left Align'></button>
