@@ -49,6 +49,93 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
   };
 })
 
+.filter('formatScheduledRecordingDayOfWeek', function() {
+
+    return function(dateTime) {
+
+      var weekday = new Array(7);
+      weekday[0] = "Sun";
+      weekday[1] = "Mon";
+      weekday[2] = "Tue";
+      weekday[3] = "Wed";
+      weekday[4] = "Thu";
+      weekday[5] = "Fri";
+      weekday[6] = "Sat";
+
+      var date = new Date(dateTime);
+
+      return weekday[date.getDay()];
+    }
+  })
+
+.filter('formatScheduledRecordingIcon', function() {
+
+    return function(startDT, endDT) {
+
+      var currentDateTime = new Date();
+      var startDateTime = new Date(startDT);
+      var endDateTime = new Date(endDT);
+
+      var icon = 'glyphicon-remove';
+      if (startDateTime <= currentDateTime && currentDateTime < endDateTime) {
+        icon = 'glyphicon-stop';
+      }
+
+      return icon;
+    }
+  })
+
+.filter('formatScheduledRecordingMonthDay', function() {
+
+    return function(dateTime) {
+
+      var date = new Date(dateTime);
+      return (date.getMonth() + 1).toString() + "/" + date.getDate().toString();
+    }
+  })
+
+.filter('formatScheduledRecordingChannel', function() {
+
+    return function(channel) {
+
+      var channelParts = channel.split('-');
+      if (channelParts.length == 2 && channelParts[1] == "1") {
+        channel = channelParts[0];
+      }
+      return channel;
+    }
+  })
+
+.filter('formatScheduledRecordingTimeOfDay', function() {
+
+    return function(dateTime) {
+
+      var date = new Date(dateTime);
+
+      var amPM = "am";
+
+      var numHours = date.getHours();
+      if (numHours == 0) {
+        numHours = 12;
+      }
+      else if (numHours > 12) {
+        numHours -= 12;
+        amPM = "pm";
+      }
+      else if (numHours == 12) {
+        amPM = "pm";
+      }
+      var hoursLbl = numHours.toString();
+
+      //if (hoursLbl.length == 1) hoursLbl = "&nbsp" + hoursLbl;
+      //if (hoursLbl.length == 1) hoursLbl = hoursLbl;
+
+      var minutesLbl = twoDigitFormat(date.getMinutes().toString());
+
+      return hoursLbl + ":" + minutesLbl + amPM;
+    }
+  })
+
 .filter('formatStartDateTime', function() {
   return function(startDateTime) {
 
@@ -76,7 +163,18 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
   };
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.filter('formatPosition', function() {
+    return function(lastViewedPosition, duration) {
+
+      var lastViewedPositionInMinutes = Math.floor(lastViewedPosition / 60);
+      var position = lastViewedPositionInMinutes.toString() + " of " + duration.toString() + " minutes";
+
+      return position;
+    };
+  })
+
+
+  .config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
