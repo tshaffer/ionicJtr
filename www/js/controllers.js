@@ -32,9 +32,6 @@ angular.module('jtr.controllers', [])
 
 })
 
-.controller('ScheduledRecordingsCtrl', function($scope) {
-})
-
 .controller('RecordNowCtrl', function($scope) {
 })
 
