@@ -260,11 +260,6 @@ angular.module('jtr.controllers')
 
     var stationIndex = jtrStationsService.getStationIndex(stationId);
     if (stationIndex >= 0) {
-      //$scope._currentStationIndex = stationIndex;
-      //$scope.selectProgram($scope._currentSelectedProgramButton, event.target);
-      //var programData = $scope.getSelectedStationAndProgram();
-      //
-      //$jtrBroadcastService.broadcastMsg("cgRecordings", programData);
 
       var programData = {};
       programData.stationId = stationId;
