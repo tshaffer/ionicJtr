@@ -1,12 +1,5 @@
 <ion-view view-title="Channel Guide">
-  <ion-content>
-    <!--<div id="cgProgramName"></div>-->
-    <!--<div id="cgDateTimeInfo"></div>-->
-    <!--<div id="cgEpisodeTitle"></div>-->
-    <!--<div id="cgDescription"></div>-->
-    <!--<div id="cgCastMembers"></div>-->
-    <!--<div id="episodeInfo"></div>-->
-
+  <ion-content scroll="false">
     <!--<div id="cgBackward">-->
       <!--<button id="btnNavigateBackwardOneDay" type='button' class='btn btn-default' aria-label='Left Align' ng-click="navigateBackwardOneDay()"><span class='glyphicon glyphicon-step-backward' aria-hidden='true'></span></button>-->
       <!--<button id="btnNavigateBackwardOneScreen" type='button' class='btn btn-default' aria-label='Left Align' ng-click="navigateBackwardOneScreen()"><span class='glyphicon glyphicon-backward' aria-hidden='true'></span></button>-->
@@ -26,7 +19,10 @@
       <p class="cgStationLine">44 KBCW</p>
     </div>
 
-    <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();" on-drag-left="onDragLeft();" on-drag-right="onDragRight();">
+    <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();">
+         <!--on-drag-left="onDragLeft();"-->
+         <!--on-drag-right="onDragRight();"-->
+
       <div id="cgTimeLine" class="timeLine"></div>
       <div ng-repeat="station in cgData" class="cgLine" id="cgStation{{$index}}Data">
         <cg-program ng-repeat="program in station.programs"></cg-program>

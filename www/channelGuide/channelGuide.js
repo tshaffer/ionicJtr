@@ -3,11 +3,11 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ChannelGuideCtrl', function($scope, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
+.controller('ChannelGuideCtrl', function($scope, $ionicGesture, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
 
-  $scope.navigateBackward = function (numHours) {
+  $scope.navigateBackward = function (numMinutes) {
 
-    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(-numHours);
+    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(-numMinutes);
     if (newScrollToTime < $scope.channelGuideDisplayStartDateTime) {
       newScrollToTime = new Date($scope.channelGuideDisplayStartDateTime);
     }
@@ -18,12 +18,12 @@ angular.module('jtr.controllers')
   }
 
 
-  $scope.navigateForward = function (numHours) {
+  $scope.navigateForward = function (numMinutes) {
 
-    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(numHours);
-    var proposedEndTime = new Date(newScrollToTime).addHours($scope.channelGuideHoursDisplayed);
+    newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(numMinutes);
+    var proposedEndTime = new Date(newScrollToTime).addMinutes($scope.channelGuideHoursDisplayed);
     if (proposedEndTime > $scope.channelGuideDisplayEndDateTime) {
-      newScrollToTime = new Date($scope.channelGuideDisplayEndDateTime).addHours(-numHours);
+      newScrollToTime = new Date($scope.channelGuideDisplayEndDateTime).addMinutes(-numMinutes);
     }
     $scope.scrollToTime(newScrollToTime)
     $scope.updateTextAlignment();
@@ -31,6 +31,53 @@ angular.module('jtr.controllers')
     $scope.selectProgramAtTimeOnStation(newScrollToTime, $scope._currentStationIndex, $scope._currentSelectedProgramButton);
   }
 
+  $scope.scrollToTime = function (newScrollToTime) {
+
+    console.log("scrollToTime: " + newScrollToTime);
+
+    var startMinute = (parseInt(newScrollToTime.getMinutes() / 30) * 30) % 60;
+    var startHour = newScrollToTime.getHours();
+
+    var roundedDownScrollToTime = new Date(newScrollToTime.getFullYear(), newScrollToTime.getMonth(), newScrollToTime.getDate(), startHour, startMinute, 0, 0);
+
+    var timeDiffInMinutes = msecToMinutes(newScrollToTime.getTime() - roundedDownScrollToTime.getTime());
+
+    var slotsToScroll = $scope.getSlotIndex(roundedDownScrollToTime);
+    var scrollLeftValue = (slotsToScroll * $scope.widthOfThirtyMinutes) + (timeDiffInMinutes / 30 * $scope.widthOfThirtyMinutes);
+
+    //$("#cgData").scrollLeft(slotsToScroll * $scope.widthOfThirtyMinutes)
+    $("#cgData").scrollLeft(scrollLeftValue);
+
+    $scope.channelGuideDisplayCurrentDateTime = newScrollToTime;
+    $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours($scope.channelGuideHoursDisplayed);
+  }
+
+
+  //$scope.navigateBackward = function (numHours) {
+  //
+  //  newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(-numHours);
+  //  if (newScrollToTime < $scope.channelGuideDisplayStartDateTime) {
+  //    newScrollToTime = new Date($scope.channelGuideDisplayStartDateTime);
+  //  }
+  //  $scope.scrollToTime(newScrollToTime)
+  //  $scope.updateTextAlignment();
+  //
+  //  $scope.selectProgramAtTimeOnStation(newScrollToTime, $scope._currentStationIndex, $scope._currentSelectedProgramButton);
+  //}
+  //
+  //
+  //$scope.navigateForward = function (numHours) {
+  //
+  //  newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours(numHours);
+  //  var proposedEndTime = new Date(newScrollToTime).addHours($scope.channelGuideHoursDisplayed);
+  //  if (proposedEndTime > $scope.channelGuideDisplayEndDateTime) {
+  //    newScrollToTime = new Date($scope.channelGuideDisplayEndDateTime).addHours(-numHours);
+  //  }
+  //  $scope.scrollToTime(newScrollToTime)
+  //  $scope.updateTextAlignment();
+  //
+  //  $scope.selectProgramAtTimeOnStation(newScrollToTime, $scope._currentStationIndex, $scope._currentSelectedProgramButton);
+  //}
 
   $scope.getSlotIndex = function (dateTime) {
 
@@ -46,17 +93,18 @@ angular.module('jtr.controllers')
   }
 
 
-  $scope.scrollToTime = function (newScrollToTime) {
+    //$scope.scrollToTime = function (newScrollToTime) {
+  //
+  //  var slotsToScroll = $scope.getSlotIndex(newScrollToTime);
+  //
+  //  $("#cgData").scrollLeft(slotsToScroll * $scope.widthOfThirtyMinutes)
+  //
+  //  $scope.channelGuideDisplayCurrentDateTime = newScrollToTime;
+  //  $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours($scope.channelGuideHoursDisplayed);
+  //},
 
-    var slotsToScroll = $scope.getSlotIndex(newScrollToTime);
 
-    $("#cgData").scrollLeft(slotsToScroll * $scope.widthOfThirtyMinutes)
-
-    $scope.channelGuideDisplayCurrentDateTime = newScrollToTime;
-    $scope.channelGuideDisplayCurrentEndDateTime = new Date($scope.channelGuideDisplayCurrentDateTime).addHours($scope.channelGuideHoursDisplayed);
-  },
-
-
+    // TODO - is this still necessary?
   $scope.selectProgramAtTimeOnStation = function (selectProgramTime, stationIndex, currentUIElement) {
 
     $scope._currentStationIndex = stationIndex;
@@ -78,6 +126,14 @@ angular.module('jtr.controllers')
     $scope.selectProgram(currentUIElement, nextActiveUIElement);
   }
 
+  $scope.scrollChannelGuide = function(deltaX) {
+    if (deltaX < 0) {
+      $scope.navigateForward(-deltaX);
+    }
+    else if (deltaX > 0) {
+      $scope.navigateBackward(deltaX);
+    }
+  };
 
   $scope.onSwipeLeft = function() {
     console.log("onSwipeLeft invoked");
@@ -147,17 +203,6 @@ angular.module('jtr.controllers')
 
 
   $scope.updateActiveProgramUIElement = function (activeProgramUIElement, newActiveProgramUIElement) {
-
-    if (activeProgramUIElement != null) {
-      $(activeProgramUIElement).removeClass("btn-primary");
-      $(activeProgramUIElement).addClass("btn-secondary");
-    }
-
-    $(newActiveProgramUIElement).removeClass("btn-secondary");
-    $(newActiveProgramUIElement).addClass("btn-primary");
-
-    $(newActiveProgramUIElement).focus();
-
     $scope._currentSelectedProgramButton = newActiveProgramUIElement;
   }
 
@@ -208,78 +253,12 @@ angular.module('jtr.controllers')
   $scope.updateProgramInfo = function (programUIElement) {
 
     var programInfo = $scope.parseProgramId($(programUIElement)[0]);
-
     var programList = $scope.getProgramList(programInfo.stationId);
     var selectedProgram = programList[programInfo.programIndex];
-
-    // display title (prominently)
-    $("#cgProgramName").text(selectedProgram.title);
 
     // display day/date of selected program in upper left of channel guide
     var programDayDate = dayDate(selectedProgram.date);
     $("#cgDayDate").text(programDayDate);
-
-    $("#programInfo").empty();
-
-    // day, date, and time
-    var startTime = timeOfDay(selectedProgram.date);
-
-    var endDate = new Date(selectedProgram.date.getTime()).addMinutes(selectedProgram.duration);
-    var endTime = timeOfDay(endDate);
-
-    var dateTimeInfo = programDayDate + " " + startTime + " - " + endTime;
-
-    var episodeInfo = "";
-    if (selectedProgram.showType == "Series" && selectedProgram.newShow == 0) {
-      episodeInfo = "Rerun";
-      if (selectedProgram.originalAirDate != "") {
-        episodeInfo += ": original air date was " + selectedProgram.originalAirDate;
-        if (selectedProgram.seasonEpisode != "") {
-          episodeInfo += ", " + selectedProgram.seasonEpisode;
-        }
-      }
-    }
-
-    $("#cgDateTimeInfo").html(dateTimeInfo)
-
-    var episodeTitle = selectedProgram.episodeTitle;
-    if (episodeTitle == "") {
-      episodeTitle = "<br/>";
-    }
-    $("#cgEpisodeTitle").html(episodeTitle)
-
-    var programDescription = selectedProgram.longDescription;
-    if (programDescription == "") {
-      programDescription = selectedProgram.shortDescription;
-    }
-    if (programDescription == "") {
-      programDescription = "<br/>";
-    }
-    $("#cgDescription").html(programDescription)
-
-    var castMembers = selectedProgram.castMembers;
-    if (castMembers == "") {
-      castMembers = "<br/>";
-    }
-    $("#cgCastMembers").html(castMembers)
-
-    if (episodeInfo == "") {
-      episodeInfo = "<br/>";
-    }
-    $("#episodeInfo").html(episodeInfo)
-  }
-
-
-
-  $scope.getSelectedStationAndProgram = function () {
-
-    var programInfo = $scope.parseProgramId($scope._currentSelectedProgramButton);
-    var programList = $scope.getProgramList(programInfo.stationId);
-
-    var programData = {};
-    programData.stationId = programInfo.stationId;
-    programData.program = programList[programInfo.programIndex];
-    return programData;
   }
 
   $scope.show = function() {
@@ -400,26 +379,6 @@ angular.module('jtr.controllers')
 
     $("#cgTimeLine").append(toAppend);
 
-    // setup handlers on children for browser - when user clicks on program to record, etc.
-    //$("#cgData").click(function (event) {
-    //  var buttonClicked = event.target;
-    //  if (event.target.id != "") {
-    //    // presence of an id means that it's not a timeline button
-    //    var programInfo = $scope.parseProgramId($(event.target)[0]);
-    //    var programList = $scope.getProgramList(programInfo.stationId);
-    //    $scope.selectProgramTime = programList[programInfo.programIndex].date;
-    //
-    //    var stationIndex = jtrStationsService.getStationIndex(programInfo.stationId);
-    //    if (stationIndex >= 0) {
-    //      $scope._currentStationIndex = stationIndex;
-    //      $scope.selectProgram($scope._currentSelectedProgramButton, event.target);
-    //      var programData = $scope.getSelectedStationAndProgram();
-    //
-    //      //jtrBroadcastService.broadcastMsg("cgRecordings", programData);
-    //    }
-    //  }
-    //});
-
     var promise = jtrServerService.retrieveLastTunedChannel();
     promise.then(function(result) {
       console.log("lastTunedChannel successfully retrieved");
@@ -429,8 +388,78 @@ angular.module('jtr.controllers')
       $scope._currentSelectedProgramButton = $(stationRow).children()[0];
       $scope.selectProgram(null, $scope._currentSelectedProgramButton);
       $scope._currentStationIndex = stationIndex;
+
+
+      var dragStart = $ionicGesture.on("dragstart", $scope.dragStart, $("#cgData"));
+      var drag = $ionicGesture.on("drag", $scope.drag, $("#cgData"));
+      //var dragLeft = $ionicGesture.on("dragleft", $scope.dragLeft, $("#cgData"))
+      //var dragRight = $ionicGesture.on("dragright", $scope.dragRight, $("#cgData"))
+      var dragEnd = $ionicGesture.on("dragend", $scope.dragEnd, $("#cgData"));
+
+      var hold = $ionicGesture.on("hold", $scope.hold, $("#cgData"));
+      var tap = $ionicGesture.on("tap", $scope.tap, $("#cgData"));
+      var touch = $ionicGesture.on("touch", $scope.touch, $("#cgData"));
     });
 
+  }
+
+  $scope.hold = function(event) {
+    console.log("hold");
+    $scope.displayDragData(event);
+  };
+
+  $scope.tap = function(event) {
+    console.log("tap");
+    $scope.displayDragData(event);
+  };
+
+  // touch event signals potential start of drag as does dragStart
+  $scope.touch = function(event) {
+    console.log("touch");
+    //$scope.displayDragData(event);
+
+    $scope.lastDeltaX = event.gesture.deltaX;
+  };
+
+  // start of drag
+  $scope.dragStart = function(event) {
+    console.log("dragStart invoked");
+    //$scope.displayDragData(event);
+
+    $scope.lastDeltaX = event.gesture.deltaX;
+  }
+
+  $scope.drag = function(event) {
+    console.log("drag invoked");
+    //$scope.displayDragData(event);
+
+    var deltaX = event.gesture.deltaX - $scope.lastDeltaX;
+    $scope.lastDeltaX = event.gesture.deltaX;
+    console.log("deltaX=" + deltaX);
+    $scope.scrollChannelGuide(deltaX);
+  }
+
+  $scope.dragLeft = function(event) {
+    console.log("dragleft invoked");
+    $scope.displayDragData(event);
+  }
+
+  $scope.dragRight = function(event) {
+    console.log("dragRight invoked");
+    $scope.displayDragData(event);
+  }
+
+  $scope.dragEnd = function(event) {
+    console.log("dragEnd invoked");
+    $scope.displayDragData(event);
+  }
+
+  $scope.displayDragData = function(event) {
+    //console.log("direction=" + event.gesture.direction);
+    console.log("deltaX="+ event.gesture.deltaX);
+    console.log("distance=" + event.gesture.distance);
+    //console.log("timestamp=" + event.gesture.timeStamp);
+    //console.log("deltaTime=" + event.gesture.deltaTime);
   }
 
   $scope.cgData = [];
