@@ -5,7 +5,12 @@ angular.module('jtr.controllers')
 
 .controller('ChannelGuideCtrl', function($scope, $ionicGesture, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
 
-  $scope.navigateBackward = function (numMinutes) {
+  $scope.navigateBackward = function (numPixels) {
+
+    var numMinutes = (numPixels / 120) * 30;
+    //cumulativeMinutesScrolled += numMinutes;
+    //console.log("navigate backward by " + numPixels + " pixels, " + numMinutes + " minutes");
+    //console.log("cumulativeMinutesScrolled=" + cumulativeMinutesScrolled);
 
     newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(-numMinutes);
     if (newScrollToTime < $scope.channelGuideDisplayStartDateTime) {
@@ -18,7 +23,12 @@ angular.module('jtr.controllers')
   }
 
 
-  $scope.navigateForward = function (numMinutes) {
+  $scope.navigateForward = function (numPixels) {
+
+    var numMinutes = (numPixels / 120) * 30;
+    //cumulativeMinutesScrolled += numMinutes;
+    //console.log("navigate forward by " + numPixels + " pixels, " + numMinutes + " minutes");
+    //console.log("cumulativeMinutesScrolled=" + cumulativeMinutesScrolled);
 
     newScrollToTime = new Date($scope.channelGuideDisplayCurrentDateTime).addMinutes(numMinutes);
     var proposedEndTime = new Date(newScrollToTime).addMinutes($scope.channelGuideHoursDisplayed);
@@ -125,15 +135,6 @@ angular.module('jtr.controllers')
 
     $scope.selectProgram(currentUIElement, nextActiveUIElement);
   }
-
-  $scope.scrollChannelGuide = function(deltaX) {
-    if (deltaX < 0) {
-      $scope.navigateForward(-deltaX);
-    }
-    else if (deltaX > 0) {
-      $scope.navigateBackward(deltaX);
-    }
-  };
 
   $scope.onSwipeLeft = function() {
     console.log("onSwipeLeft invoked");
@@ -406,6 +407,7 @@ angular.module('jtr.controllers')
   $scope.hold = function(event) {
     console.log("hold");
     $scope.displayDragData(event);
+    cumulativeDeltaX = 0;
   };
 
   $scope.tap = function(event) {
@@ -419,6 +421,8 @@ angular.module('jtr.controllers')
     //$scope.displayDragData(event);
 
     $scope.lastDeltaX = event.gesture.deltaX;
+    cumulativeDeltaX = 0;
+    cumulativeMinutesScrolled = 0;
   };
 
   // start of drag
@@ -427,7 +431,24 @@ angular.module('jtr.controllers')
     //$scope.displayDragData(event);
 
     $scope.lastDeltaX = event.gesture.deltaX;
+    cumulativeDeltaX = 0;
+    cumulativeMinutesScrolled = 0;
   }
+
+  //var cumulativeDeltaX = 0;
+  //var cumulativeMinutesScrolled = 0;
+
+  $scope.scrollChannelGuide = function(deltaX) {
+    if (deltaX < 0) {
+      $scope.navigateForward(-deltaX);
+    }
+    else if (deltaX > 0) {
+      $scope.navigateBackward(deltaX);
+    }
+    //cumulativeDeltaX += deltaX;
+    //console.log("scrollChannelGuide by " + deltaX + " pixels");
+    //console.log("cumulative navigation = " + cumulativeDeltaX);
+  };
 
   $scope.drag = function(event) {
     console.log("drag invoked");
@@ -456,8 +477,8 @@ angular.module('jtr.controllers')
 
   $scope.displayDragData = function(event) {
     //console.log("direction=" + event.gesture.direction);
-    console.log("deltaX="+ event.gesture.deltaX);
-    console.log("distance=" + event.gesture.distance);
+    //console.log("deltaX="+ event.gesture.deltaX);
+    //console.log("distance=" + event.gesture.distance);
     //console.log("timestamp=" + event.gesture.timeStamp);
     //console.log("deltaTime=" + event.gesture.deltaTime);
   }
