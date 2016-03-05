@@ -6,14 +6,15 @@ angular.module('jtr.controllers', [])
 
   $scope.trickModes = [
 
-    { command: "record", font: "ion-record" },
+    //{ command: "record", font: "ion-record" },
     { command: "stop", font: "ion-ios-stop" },
     { command: "rewind", font: "ion-ios-rewind" },
     { command: "instantReplay", font: "ion-ios-skipbackward" },
     { command: "pause", font: "ion-ios-pause" },
     { command: "play", font: "ion-ios-play" },
     { command: "quickSkip", font: "ion-ios-skipforward" },
-    { command: "fastForward", font: "ion-ios-fastforward" }
+    { command: "fastForward", font: "ion-ios-fastforward" },
+    { command: "progress_bar", font: "ion-ios-help" }
   ];
 
   $scope.invokeTrickMode = function(trickMode) {

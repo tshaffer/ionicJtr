@@ -26,7 +26,7 @@ angular.module('jtr.controllers')
         $rootScope.playbackActiveRecordingId = recording.RecordingId;
       })
     };
-  
+
     $scope.recording = jtrServerService.getRecording($stateParams.recordingId);
 
     if (!($rootScope.playbackActive && $rootScope.playbackActiveRecordingId == $stateParams.recordingId)) {
