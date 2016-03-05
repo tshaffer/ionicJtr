@@ -3,9 +3,16 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ManualRecordCtrl', function($scope, jtrServerService) {
+.controller('ManualRecordCtrl', function($rootScope, $scope, $location, jtrServerService) {
 
-    $scope.inputSource = "tuner";
+  $scope.invokeNowPlaying = function() {
+    console.log("invokeNowPlaying");
+    var recordingId = $rootScope.playbackActiveRecordingId;
+    $location.path("/tab/recordings/" + recordingId.toString());
+  }
+
+
+  $scope.inputSource = "tuner";
     $scope.title = "Test 0";
     $scope.duration = 1;
     $scope.date = new Date();

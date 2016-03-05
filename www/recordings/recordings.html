@@ -1,4 +1,11 @@
 <ion-view view-title="Recordings">
+
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="invokeNowPlaying()" ng-show="playbackActive">
+      Now Playing
+    </button>
+  </ion-nav-buttons>
+
   <ion-content>
 
     <ion-refresher
@@ -6,11 +13,33 @@
       on-refresh="doRefresh()">
     </ion-refresher>
 
-    <ion-list>
-      <ion-item ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" href="#/tab/recordings/{{recording.RecordingId}}"
-        <h2>{{recording.Title}}</h2>
-        <p>{{recording.StartDateTime|formatStartDateTime}}</p>
-      </ion-item>
-    </ion-list>
+    <!--<ion-list>-->
+      <!--<ion-item ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" class="item item-icon-left" href="#/tab/recordings/{{recording.RecordingId}}"-->
+        <!--<button class="button icon ion-ios-trash button-clear"></button>-->
+        <!--<h2>{{recording.Title}}</h2>-->
+        <!--<p>{{recording.StartDateTime|formatStartDateTime}}</p>-->
+      <!--</ion-item>-->
+    <!--</ion-list>-->
+
+    <!--<div class="list">-->
+      <!--<a ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" class="item item-icon-left item-icon-right" href="#/tab/recordings/{{recording.RecordingId}}">-->
+        <!--<button class="button icon ion-play button-clear" ng-click="playRecordedShow(recording)"></button>-->
+        <!--<h2>{{recording.Title}}</h2>-->
+        <!--<p>{{recording.StartDateTime|formatStartDateTime}}</p>-->
+        <!--<button class="button icon ion-close-circled button-clear" ng-click="deleteRecordedShow(recording)"></button>-->
+      <!--</a>-->
+    <!--</div>-->
+
+    <div class="list">
+      <div class="item item-icon-left item-icon-right" ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" >
+        <button class="button icon ion-play button-clear" ng-click="playRecordedShow(recording)"></button>
+        <a href="#/tab/recordings/{{recording.RecordingId}}" style="text-decoration: none">
+          <h2>{{recording.Title}}</h2>
+          <p>{{recording.StartDateTime|formatStartDateTime}}</p>
+        </a>
+        <button class="button icon ion-close-circled button-clear" ng-click="deleteRecordedShow(recording)"></button>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>

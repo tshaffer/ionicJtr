@@ -3,7 +3,7 @@
  */
 angular.module('jtr.controllers')
 
-.controller('RecordingDetailCtrl', function($scope, $stateParams, jtrServerService) {
+.controller('RecordingDetailCtrl', function($location, $rootScope, $scope, $stateParams, jtrServerService) {
 
     $scope.playRecordedShow = function(recording) {
       console.log("controller.js::Play recording: " + recording.Title);
@@ -22,11 +22,15 @@ angular.module('jtr.controllers')
       var promise = jtrServerService.browserCommand(commandData);
       promise.then(function () {
         console.log("browserCommand successfully sent");
+        $rootScope.playbackActive = true;
+        $rootScope.playbackActiveRecordingId = recording.RecordingId;
       })
     };
-
-
+  
     $scope.recording = jtrServerService.getRecording($stateParams.recordingId);
-    $scope.playRecordedShow($scope.recording);
+
+    if (!($rootScope.playbackActive && $rootScope.playbackActiveRecordingId == $stateParams.recordingId)) {
+      $scope.playRecordedShow($scope.recording);
+    }
   })
 

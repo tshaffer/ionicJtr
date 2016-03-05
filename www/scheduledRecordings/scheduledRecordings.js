@@ -3,7 +3,13 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ScheduledRecordingsCtrl', function($scope, jtrServerService, jtrStationsService) {
+.controller('ScheduledRecordingsCtrl', function($rootScope, $scope, $location, jtrServerService, jtrStationsService) {
+
+  $scope.invokeNowPlaying = function() {
+    console.log("invokeNowPlaying");
+    var recordingId = $rootScope.playbackActiveRecordingId;
+    $location.path("/tab/recordings/" + recordingId.toString());
+  }
 
   $scope.invokeScheduledRecordingAction = function(action, recordingId) {
 

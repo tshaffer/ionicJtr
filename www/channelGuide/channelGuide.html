@@ -1,4 +1,11 @@
 <ion-view view-title="Channel Guide">
+
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="invokeNowPlaying()" ng-show="playbackActive">
+      Now Playing
+    </button>
+  </ion-nav-buttons>
+
   <ion-content scroll="false">
     <!--<div id="cgBackward">-->
       <!--<button id="btnNavigateBackwardOneDay" type='button' class='btn btn-default' aria-label='Left Align' ng-click="navigateBackwardOneDay()"><span class='glyphicon glyphicon-step-backward' aria-hidden='true'></span></button>-->

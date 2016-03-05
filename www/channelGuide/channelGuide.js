@@ -3,7 +3,13 @@
  */
 angular.module('jtr.controllers')
 
-.controller('ChannelGuideCtrl', function($scope, $ionicGesture, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
+.controller('ChannelGuideCtrl', function($rootScope, $scope, $location, $ionicGesture, jtrServerService, jtrStationsService, jtrEpgFactory, jtrCGServices, jtrSettingsService) {
+
+  $scope.invokeNowPlaying = function() {
+    console.log("invokeNowPlaying");
+    var recordingId = $rootScope.playbackActiveRecordingId;
+    $location.path("/tab/recordings/" + recordingId.toString());
+  }
 
   $scope.navigateBackward = function (numPixels) {
 

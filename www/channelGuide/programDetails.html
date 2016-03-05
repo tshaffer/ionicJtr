@@ -1,4 +1,11 @@
 <ion-view view-title="{{program.Title}}">
+
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="invokeNowPlaying()" ng-show="playbackActive">
+      Now Playing
+    </button>
+  </ion-nav-buttons>
+
   <ion-content class="padding">
     <div id="cgProgramName"></div>
     <div id="cgDateTimeInfo"></div>
