@@ -1,12 +1,14 @@
 <ion-view view-title="Scheduled Recordings">
   <ion-content>
-    <div class="row" ng-repeat="scheduledRecording in scheduledRecordings">
-      <div class="col-10">
+    <ion-list>
+      <ion-item ng-repeat="scheduledRecording in scheduledRecordings" class="item-icon-left">
         <button class="button icon ion-ios-trash button-clear" id='{{scheduledRecording.recordingId}}' ng-click="invokeScheduledRecordingAction(scheduledRecording.action, scheduledRecording.recordingId)"></button>
-      </div>
-      <div class="col col-33">{{scheduledRecording.dateTime|formatScheduledRecordingDayOfWeek}} {{scheduledRecording.dateTime|formatScheduledRecordingMonthDay}} {{scheduledRecording.dateTime|formatScheduledRecordingTimeOfDay}}</div>
-      <div class="col col-20">{{scheduledRecording.stationName}} {{scheduledRecording.channel|formatScheduledRecordingChannel}}</div>
-      <div class="col">{{scheduledRecording.title}}</div>
-    </div>
+        <h2>{{scheduledRecording.title}}</h2>
+        <p>{{scheduledRecording.dateTime|formatScheduledRecordingDayOfWeek}}
+          {{scheduledRecording.dateTime|formatScheduledRecordingMonthDay}} {{scheduledRecording.dateTime|formatScheduledRecordingTimeOfDay}}
+          , {{scheduledRecording.stationName}} {{scheduledRecording.channel|formatScheduledRecordingChannel}}
+        </p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
