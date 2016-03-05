@@ -1,7 +1,7 @@
 <ion-view view-title="{{recording.Title}}">
   <ion-content class="padding">
     <p>
-      Recorded on {{recording.StartDateTime|formatStartDateTime}}
+      Recorded on {{recording.StartDateTime|formatStartDateTime}}, {{recording.StartDateTime|formatTimeOfDay}}
     </p>
     <p>
       Duration {{recording.Duration}} minutes

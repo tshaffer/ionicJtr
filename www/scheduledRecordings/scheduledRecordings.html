@@ -11,9 +11,9 @@
       <ion-item ng-repeat="scheduledRecording in scheduledRecordings" class="item-icon-left">
         <button class="button icon ion-ios-trash button-clear" id='{{scheduledRecording.recordingId}}' ng-click="invokeScheduledRecordingAction(scheduledRecording.action, scheduledRecording.recordingId)"></button>
         <h2>{{scheduledRecording.title}}</h2>
-        <p>{{scheduledRecording.dateTime|formatScheduledRecordingDayOfWeek}}
-          {{scheduledRecording.dateTime|formatScheduledRecordingMonthDay}} {{scheduledRecording.dateTime|formatScheduledRecordingTimeOfDay}}
-          , {{scheduledRecording.stationName}} {{scheduledRecording.channel|formatScheduledRecordingChannel}}
+        <p>{{scheduledRecording.dateTime|formatDayOfWeek}}
+          {{scheduledRecording.dateTime|formatMonthDay}} {{scheduledRecording.dateTime|formatTimeOfDay}},
+          {{scheduledRecording.stationName}} {{scheduledRecording.channel|formatChannel}}
         </p>
       </ion-item>
     </ion-list>

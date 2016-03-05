@@ -49,7 +49,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
   };
 })
 
-.filter('formatScheduledRecordingDayOfWeek', function() {
+.filter('formatDayOfWeek', function() {
 
     return function(dateTime) {
 
@@ -85,7 +85,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
-.filter('formatScheduledRecordingMonthDay', function() {
+.filter('formatMonthDay', function() {
 
     return function(dateTime) {
 
@@ -94,7 +94,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
-.filter('formatScheduledRecordingChannel', function() {
+.filter('formatChannel', function() {
 
     return function(channel) {
 
@@ -106,7 +106,7 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
     }
   })
 
-.filter('formatScheduledRecordingTimeOfDay', function() {
+.filter('formatTimeOfDay', function() {
 
     return function(dateTime) {
 
