@@ -13,12 +13,20 @@ angular.module('jtr.controllers')
 
   $scope.playRecordedShow = function(recording) {
     console.log("playRecordedShow invoked");
-    console.log(recording);
+    $location.path("/tab/recordings/" + recording.RecordingId.toString());
   }
 
   $scope.deleteRecordedShow = function(recording) {
-    console.log("deleteRecordedShow");
-    console.log(recording);
+
+    var recordingId = recording.RecordingId;
+
+    console.log("deleteRecordedShow: " + recordingId);
+    var commandData = {"command": "deleteRecordedShow", "recordingId": recordingId};
+    var promise = jtrServerService.browserCommand(commandData);
+    promise.then(function () {
+      console.log("browserCommand successfully sent");
+      $scope.show();
+    })
   }
 
   $scope.doRefresh = function() {
