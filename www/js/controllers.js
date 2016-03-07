@@ -1,38 +1,5 @@
 angular.module('jtr.controllers', [])
 
-.controller('footer', function($scope, jtrServerService) {
-
-  console.log("footer controller initialization");
-
-  $scope.trickModes = [
-
-    //{ command: "record", font: "ion-record" },
-    { command: "stop", font: "ion-ios-stop" },
-    { command: "rewind", font: "ion-ios-rewind" },
-    { command: "instantReplay", font: "ion-ios-skipbackward" },
-    { command: "pause", font: "ion-ios-pause" },
-    { command: "play", font: "ion-ios-play" },
-    { command: "quickSkip", font: "ion-ios-skipforward" },
-    { command: "fastForward", font: "ion-ios-fastforward" },
-    { command: "progress_bar", font: "ion-ios-help" }
-  ];
-
-  $scope.invokeTrickMode = function(trickMode) {
-    console.log("trickMode invoked: " + trickMode);
-
-    var commandData = {
-      "command": trickMode
-    };
-
-    var commandData = {"command": "remoteCommand", "value": trickMode};
-    var promise = jtrServerService.browserCommand(commandData);
-    promise.then(function () {
-      console.log("browserCommand successfully sent");
-    })
-  };
-
-})
-
 .controller('RecordNowCtrl', function($scope) {
 })
 

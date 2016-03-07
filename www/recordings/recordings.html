@@ -16,10 +16,11 @@
     <div class="list">
       <div class="item item-icon-left item-icon-right" ng-repeat="recording in recordings | orderBy:'-RecordingId':reverse" >
         <button class="button icon ion-play button-clear" ng-click="playRecordedShow(recording)"></button>
-        <a href="#/tab/recordings/{{recording.RecordingId}}" style="text-decoration: none">
+        <!--<a href="#/tab/recordings/{{recording.RecordingId}}" style="text-decoration: none">-->
+        <button class="button button-clear button-full" ng-click="showRecordedShow(recording)" style="text-decoration: none">
           <h2>{{recording.Title}}</h2>
           <p>{{recording.StartDateTime|formatStartDateTime}}, {{recording.StartDateTime|formatTimeOfDay}}</p>
-        </a>
+        </button>
         <button class="button icon ion-close-circled button-clear" ng-click="deleteRecordedShow(recording)"></button>
       </div>
     </div>

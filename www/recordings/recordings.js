@@ -8,13 +8,21 @@ angular.module('jtr.controllers')
   $scope.invokeNowPlaying = function() {
     console.log("invokeNowPlaying");
     var recordingId = $rootScope.playbackActiveRecordingId;
+    $rootScope.playRecordedShow = true;
     $location.path("/tab/recordings/" + recordingId.toString());
   }
 
   $scope.playRecordedShow = function(recording) {
     console.log("playRecordedShow invoked");
+    $rootScope.playRecordedShow = true;
     $location.path("/tab/recordings/" + recording.RecordingId.toString());
   }
+
+  $scope.showRecordedShow = function(recording) {
+    console.log("showRecordedShow invoked");
+    $rootScope.playRecordedShow = false;
+    $location.path("/tab/recordings/" + recording.RecordingId.toString());
+  };
 
   $scope.deleteRecordedShow = function(recording) {
 
