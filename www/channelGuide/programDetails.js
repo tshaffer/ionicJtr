@@ -64,7 +64,8 @@ angular.module('jtr.controllers')
           "segmentRecording": jtrSettingsService.getSettingsResult().SegmentRecordings,
           "scheduledSeriesRecordingId": $scope.cgSelectedProgram.scheduledSeriesRecordingId,
           "startTimeOffset": $scope.cgSelectedProgram.startTimeOffset,
-          "stopTimeOffset": $scope.cgSelectedProgram.stopTimeOffset
+          "stopTimeOffset": $scope.cgSelectedProgram.stopTimeOffset,
+          "programId": $scope.cgSelectedProgram.programId
         };
       }
       else {
