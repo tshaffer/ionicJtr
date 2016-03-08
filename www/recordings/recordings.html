@@ -19,7 +19,7 @@
         <!--<a href="#/tab/recordings/{{recording.RecordingId}}" style="text-decoration: none">-->
         <button class="button button-clear button-full" ng-click="showRecordedShow(recording)" style="text-decoration: none">
           <h2>{{recording.Title}}</h2>
-          <p>{{recording.StartDateTime|formatStartDateTime}}, {{recording.StartDateTime|formatTimeOfDay}}</p>
+          <h4>{{recording.StartDateTime|formatStartDateTime}}, {{recording.StartDateTime|formatTimeOfDay}}</h4>
         </button>
         <button class="button icon ion-close-circled button-clear" ng-click="deleteRecordedShow(recording)"></button>
       </div>
