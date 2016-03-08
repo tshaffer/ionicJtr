@@ -110,11 +110,12 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
 
     return function(dateTime) {
 
-      var date = new Date(dateTime);
+      console.log("dateTime is " + dateTime.toString());
+
+      var numHours = Number(dateTime.substring(11, 13));
 
       var amPM = "am";
 
-      var numHours = date.getHours();
       if (numHours == 0) {
         numHours = 12;
       }
@@ -125,14 +126,8 @@ angular.module('jtr', ['ionic', 'jtr.controllers', 'jtr.services', 'jtr.jtrServe
       else if (numHours == 12) {
         amPM = "pm";
       }
-      var hoursLbl = numHours.toString();
 
-      //if (hoursLbl.length == 1) hoursLbl = "&nbsp" + hoursLbl;
-      //if (hoursLbl.length == 1) hoursLbl = hoursLbl;
-
-      var minutesLbl = twoDigitFormat(date.getMinutes().toString());
-
-      return hoursLbl + ":" + minutesLbl + amPM;
+      return numHours.toString() + ":" + dateTime.substring(14, 16) + amPM;
     }
   })
 
