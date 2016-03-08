@@ -7,12 +7,13 @@
   </ion-nav-buttons>
 
   <ion-content scroll="false">
+
     <!--<div id="cgBackward">-->
       <!--<button id="btnNavigateBackwardOneDay" type='button' class='btn btn-default' aria-label='Left Align' ng-click="navigateBackwardOneDay()"><span class='glyphicon glyphicon-step-backward' aria-hidden='true'></span></button>-->
       <!--<button id="btnNavigateBackwardOneScreen" type='button' class='btn btn-default' aria-label='Left Align' ng-click="navigateBackwardOneScreen()"><span class='glyphicon glyphicon-backward' aria-hidden='true'></span></button>-->
     <!--</div>-->
 
-    <div id="stationLabelDiv">
+    <div id="stationLabelDiv" ng-show="!fetchingData">
       <p id="cgDayDate" class="cgStationLine">Thu 7/16</p>
       <p class="cgStationLine">2 KTVU<br />Fox</p>
       <p class="cgStationLine">4 KRON</p>
@@ -26,11 +27,16 @@
       <p class="cgStationLine">44 KBCW</p>
     </div>
 
-    <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();">
+    <div ng-class="spinnerClass" ng-show="fetchingData">
+      <ion-spinner ng-show="fetchingData"></ion-spinner>
+    </div>
+
+    <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();" ng-show="!fetchingData">
          <!--on-drag-left="onDragLeft();"-->
          <!--on-drag-right="onDragRight();"-->
 
       <div id="cgTimeLine" class="timeLine"></div>
+
       <div ng-repeat="station in cgData" class="cgLine" id="cgStation{{$index}}Data">
         <cg-program ng-repeat="program in station.programs"></cg-program>
       </div>

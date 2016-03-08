@@ -1,4 +1,15 @@
-/* Empty. Add your own CSS if you like */
+.centerIcon
+{
+  /*not sure about the hardcoded values here*/
+  width: 10px;
+  margin: 200px auto;
+
+}
+
+.dontCenterIcon {
+  margin: 0px;
+}
+
 .button-bar > .button:last-child {
   border-radius: 0px 20px 20px 0px !important;
 }
