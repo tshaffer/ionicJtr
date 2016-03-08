@@ -499,13 +499,11 @@ angular.module('jtr.controllers')
   $scope.numDaysEpgData = 3;
   //$scope.retrieveEpgData();
 
-  $scope.spinnerClass = "centerIcon";
   $scope.fetchingData = true;
 
   var promise = jtrEpgFactory.retrieveEpgData();
   promise.then(function() {
     console.log("jtrEpgFactory returned success");
-    $scope.spinnerClass = "dontCenterIcon";
     $scope.fetchingData = false;
 
     $scope.epgProgramSchedule = jtrEpgFactory.getEpgProgramSchedule();

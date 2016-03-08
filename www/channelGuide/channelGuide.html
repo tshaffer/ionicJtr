@@ -27,8 +27,8 @@
       <p class="cgStationLine">44 KBCW</p>
     </div>
 
-    <div ng-class="spinnerClass" ng-show="fetchingData">
-      <ion-spinner ng-show="fetchingData"></ion-spinner>
+    <div class="centerIcon" ng-show="fetchingData">
+      <ion-spinner></ion-spinner>
     </div>
 
     <div id="cgData" ng-keydown="handleKeyPress($event);" on-swipe-left="onSwipeLeft();" on-swipe-right="onSwipeRight();" ng-show="!fetchingData">
